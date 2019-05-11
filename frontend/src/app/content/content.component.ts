@@ -151,7 +151,7 @@ export class ContentComponent implements OnInit {
     });
 
     // loop through array and make all users score 0 formally
-    for(const user of users) {
+    for (         const user of users) {
       await this.afs.collection<any>('users').doc(user.uid).set(user)
       .catch((error) => {
         return alert(error);

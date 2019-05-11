@@ -74,7 +74,7 @@ export class CreateActivityComponent implements OnInit {
       lastName: this.lastName,
       score: this.score,
       admin: this.admin
-    }
+    };
     await this.afs.collection('users').doc(this.afAuth.auth.currentUser.uid).set(userUpdate)
       .catch((error) => {
         return alert(error);
