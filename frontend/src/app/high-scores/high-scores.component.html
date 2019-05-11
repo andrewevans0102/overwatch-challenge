@@ -1,0 +1,45 @@
+<h1>High Scores</h1>
+
+<!-- <li>First Place <mat-icon>star_border</mat-icon></li>
+<li>Second Place <mat-icon>cake</mat-icon></li>
+<li>Third Place <mat-icon>casino</mat-icon></li> -->
+<button mat-raised-button color="warn" type="button" (click)="goBack()">Go Back</button>
+<table class="table table-dark">
+  <tr *ngFor="let hs of highScores | async">
+    <td>
+      <p>Saved {{ hs.scoreTitle }}</p>
+      <div class="high-score">
+        <table class="table table-dark">
+          <thead>
+            <tr>
+              <th scope="col">First Name</th>
+              <th scope="col">Last Name</th>
+              <th scope="col">Score</th>
+              <th scope="col">Badge</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ hs.firstPlace.firstName }}</td>
+              <td>{{ hs.firstPlace.lastName }}</td>
+              <td>{{ hs.firstPlace.score }}</td>
+              <td><mat-icon>star_border</mat-icon></td>
+            </tr>
+            <tr>
+              <td>{{ hs.secondPlace.firstName }}</td>
+              <td>{{ hs.secondPlace.lastName }}</td>
+              <td>{{ hs.secondPlace.score }}</td>
+              <td><mat-icon>cake</mat-icon></td>
+            </tr>
+            <tr>
+              <td>{{ hs.thirdPlace.firstName }}</td>
+              <td>{{ hs.thirdPlace.lastName }}</td>
+              <td>{{ hs.thirdPlace.score }}</td>
+              <td><mat-icon>casino</mat-icon></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </td>
+  </tr>
+</table>

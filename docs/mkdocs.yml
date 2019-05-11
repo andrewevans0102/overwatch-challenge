@@ -1,0 +1,7 @@
+site_name: Overwatch Challenge User Guide
+pages:
+    - Home: index.md
+    - Adding Activities: adding_activities.md
+    - Scoring: scoring.md
+    - Admin: admin.md
+theme: readthedocs

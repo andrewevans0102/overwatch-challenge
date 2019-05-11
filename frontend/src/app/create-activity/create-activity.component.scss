@@ -1,0 +1,14 @@
+.create-container {
+  display: flex;
+  flex-direction: column;
+  margin: 2em;
+}
+
+.create-container > * {
+  width: 100%;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-around;
+}

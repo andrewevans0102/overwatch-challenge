@@ -1,0 +1,75 @@
+<mat-toolbar color="primary">
+  <span>Overwatch Challenge</span>
+  <span class="toolbar-space"></span>
+  <span>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu" [overlapTrigger]="false">
+      <button mat-menu-item (click)="createActivity()">
+        <mat-icon>assignment</mat-icon>
+        <span>Create Activity</span>
+      </button>
+      <button mat-menu-item (click)="viewActivity()">
+        <mat-icon>camera_roll</mat-icon>
+        <span>View Activity</span>
+      </button>
+      <button mat-menu-item (click)="viewHighScores()">
+        <mat-icon>score</mat-icon>
+        <span>View High Scores</span>
+      </button>
+      <button *ngIf="admin" mat-menu-item (click)="clearScores()">
+        <mat-icon>check_box</mat-icon>
+        <span>clear scores</span>
+      </button>
+      <button *ngIf="admin" mat-menu-item (click)="viewAdmin()">
+        <mat-icon>build</mat-icon>
+        <span>View Admin</span>
+      </button>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Logout</span>
+      </button>
+    </mat-menu>
+  </span>
+</mat-toolbar>
+<div class="rules-display">
+  <h1 *ngIf="firstName !== undefined">Welcome {{ firstName }}!</h1>
+  <p>Compete with your team to learn and share</p>
+</div>
+<table class="table table-dark">
+  <thead>
+    <tr>
+      <th scope="col">Place</th>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">Score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let userScore of scores">
+      <td>{{ userScore.place }}</td>
+      <td>{{ userScore.firstName }}</td>
+      <td>{{ userScore.lastName }}</td>
+      <td>{{ userScore.score }}</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+<!-- <div *ngFor="let a of activityDisplay" class="content-parent">
+    <div class="content-child">
+      <div class="person">
+        <p>{{ a.name }}</p>
+      </div>
+      <div class="activities">
+        <mat-list *ngFor="let b of a.completedActivity | async">
+          <mat-list-item role="listitem">
+            <a href="{{ b.link }}">{{ b.activity }}</a>
+            <button type="button" class="btn btn-danger round-button delete-button" (click)="deleteItem(b)">X</button>
+          </mat-list-item>
+        </mat-list>
+      </div>
+    </div>
+</div> -->

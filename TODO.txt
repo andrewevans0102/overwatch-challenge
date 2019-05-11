@@ -1,0 +1,11 @@
+1. Fill out documentation help guide
+2. Add help guide link to main app
+3. Run the linting command on both the functions and the angular project
+4. Connect to CircleCI
+5. Write blog post to include
+    - idea behind the application
+    - Use of the JAMStack
+    - How this app exhibits the JAMStack
+    - Firebase
+    - Angular Fire 2
+    - Firebase Cloud functions

@@ -1,0 +1,26 @@
+<h1>Admin</h1>
+<table class="table table-dark">
+  <thead>
+    <tr>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">Admin</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <td>{{ user.firstName }}</td>
+      <td>{{ user.lastName }}</td>
+      <td>
+        <div class="admin-checkbox">
+          <!-- <input class="form-check-input" type="checkbox" checked="{{ user.admin }}"> -->
+          <mat-checkbox class="example-margin" [checked]="user.admin" (change)="changeAdmin(user)">Checked</mat-checkbox>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div class="button-container">
+  <button mat-raised-button color="primary" type="button" (click)="saveUsers()">Save</button>
+  <button mat-raised-button color="warn" type="button" (click)="cancel()">Cancel</button>
+</div>

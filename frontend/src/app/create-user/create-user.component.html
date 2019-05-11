@@ -1,0 +1,21 @@
+<form [formGroup]="createForm" (ngSubmit)="createUser()" class="create-container">
+  <h1>Create User</h1>
+  <mat-form-field>
+    <input matInput placeholder="Enter your email" formControlName="email" required>
+    <mat-error *ngIf="createForm.controls['email'].invalid">{{getEmailErrorMessage()}}</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Enter your password" [type]="hidePassword ? 'password' : 'text'" formControlName="password" required>
+    <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Enter your first name" formControlName="firstName" required>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Enter your last name" formControlName="lastName" required>
+  </mat-form-field>
+  <div class="button-container">
+    <button mat-raised-button color="primary" type="submit" [disabled]="!createForm.valid">Create</button>
+    <button mat-raised-button color="warn" type="button" (click)="cancel()">Cancel</button>
+  </div>
+</form>
