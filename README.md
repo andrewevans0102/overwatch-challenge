@@ -37,7 +37,7 @@ The frontend project is organied loosely based on feature in the following folde
 ## Running Locally
 - ```npm run frontend-serve``` runs the frontend angular application locally
 - ```npm run frontend-build``` builds the frontend angular application locally
-- ```npm run deploy-frontend``` deploys the frontend application to firebase
+- ```npm run frontend-deploy``` deploys the frontend application to firebase
 - ```npm run functions-serve``` runs the firebase cloud functions locally
 - ```npm run functions-deploy``` deploys the firebase cloud functions
 - ```npm run environment-variables``` loads in the environment variables to the `environment.ts` and `environment.prod.ts` files respectively (see "Permissions" section below)

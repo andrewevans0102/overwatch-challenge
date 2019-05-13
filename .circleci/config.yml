@@ -30,10 +30,10 @@ jobs:
                 command: npm run frontend-lint
             - run:
                 name: Testing
-                command: npm run test-prod
+                command: npm run frontend-test
             - run:
                 name: Building
-                command: npm run build-prod
+                command: npm run frontend-build
             - save_cache:
                 key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
                 paths:
@@ -57,7 +57,7 @@ jobs:
                 command: npm install --save-dev firebase-tools
             - run:
                 name: Deploy Master to Firebase
-                command: npm run firebase-deploy
+                command: npm run frontend-deploy
             - run:
                 name: Deploy Cloud Functions to Firebase
                 command: npm run functions-deploy

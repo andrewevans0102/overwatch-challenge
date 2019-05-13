@@ -9,13 +9,12 @@
   "scripts": {
     "frontend-build": "cd frontend; ng build --prod",
     "frontend-serve": "cd frontend; ng serve",
-    "deploy-frontend": "cd frontend; firebase deploy",
+    "frontend-lint": "cd frontend; npm run lint",
+    "frontend-test": "cd frontend; ng test --watch=false",
+    "frontend-deploy": "cd frontend; firebase deploy",
     "environment-variables": "python scripts/environment_variables.py $OC_apiKey $OC_authDomain $OC_databaseURL $OC_projectId $OC_storageBucket $OC_messageSenderId $OC_slack1 $OC_slack2",
     "functions-serve": "cd functions; firebase serve --only functions",
     "functions-deploy": "cd functions; npm run deploy",
-    "build-prod": "cd frontend; ng build --prod",
-    "test-prod": "cd frontend; ng test --watch=false",
-    "frontend-lint": "cd frontend; npm run lint",
     "code-coverage": "cd frontend; npm run delete-coverage; npm run coverage-report"
   },
   "author": "Andrew Evans",
