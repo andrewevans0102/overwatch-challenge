@@ -5,8 +5,6 @@ try:
   with open('frontend/src/environments/environment.ts', 'r') as file :
     filedata = file.read()
 
-  print('hello' + sys.argv[1])
-
   filedata = filedata.replace('OC_apiKey', sys.argv[1])
   filedata = filedata.replace('OC_authDomain', sys.argv[2])
   filedata = filedata.replace('OC_databaseURL', sys.argv[3])

@@ -28,7 +28,6 @@ export class ContentComponent implements OnInit {
     this.selectScores();
   }
 
-  // TODO move this to a service class
   async selectUser(uid: string) {
     await this.afs.collection('users').ref.doc(uid).get()
       .then((documentSnapshot) => {
@@ -46,7 +45,6 @@ export class ContentComponent implements OnInit {
   }
 
   viewActivity() {
-    console.log(this.admin);
     this.router.navigateByUrl('/view-activity');
   }
 
@@ -99,12 +97,6 @@ export class ContentComponent implements OnInit {
 
   // wrote custom compare operator to sort score values
   compare( a, b ) {
-    // if ( a.score < b.score ) {
-    //   return -1;
-    // }
-    // if ( a.score > b.score ) {
-    //   return 1;
-    // }
     // sort descending
     if ( a.score < b.score ) {
       return 1;
@@ -125,7 +117,7 @@ export class ContentComponent implements OnInit {
       thirdPlace: this.scores[2]
     };
     const idSaved = this.afs.createId();
-    await this.afs.collection<any>('highScores').doc(idSaved).set(saveScores)
+    await this.afs.collection('highScores').doc(idSaved).set(saveScores)
     .catch((error) => {
       return alert(error);
     });
@@ -151,8 +143,8 @@ export class ContentComponent implements OnInit {
     });
 
     // loop through array and make all users score 0 formally
-    for (         const user of users) {
-      await this.afs.collection<any>('users').doc(user.uid).set(user)
+    for (const user of users) {
+      await this.afs.collection('users').doc(user.uid).set(user)
       .catch((error) => {
         return alert(error);
       });

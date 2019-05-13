@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 
@@ -16,7 +15,7 @@ export class AdminComponent implements OnInit {
     admin: new FormControl('')
   });
 
-  constructor(public afs: AngularFirestore, public afAuth: AngularFireAuth, public router: Router) { }
+  constructor(public afs: AngularFirestore, public router: Router) { }
 
   ngOnInit() {
     this.selectUsers();
@@ -45,7 +44,8 @@ export class AdminComponent implements OnInit {
 
   async saveUsers() {
     for (const user of this.users) {
-      await this.afs.collection<any>('users').doc(user.uid).set(user)
+      console.log(user);
+      await this.afs.collection('users').doc(user.uid).set(user)
       .catch((error) => {
         return alert(error);
       });
@@ -56,7 +56,7 @@ export class AdminComponent implements OnInit {
     user.admin = !user.admin;
   }
 
-  cancel() {
+  goBack() {
     this.router.navigateByUrl('/content');
   }
 

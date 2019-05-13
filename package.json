@@ -15,7 +15,8 @@
     "functions-deploy": "cd functions; npm run deploy",
     "build-prod": "cd frontend; ng build --prod",
     "test-prod": "cd frontend; ng test --watch=false",
-    "frontend-lint": "cd frontend; npm run lint"
+    "frontend-lint": "cd frontend; npm run lint",
+    "code-coverage": "cd frontend; npm run delete-coverage; npm run coverage-report"
   },
   "author": "Andrew Evans",
   "license": "MIT"

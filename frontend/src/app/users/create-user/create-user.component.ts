@@ -48,7 +48,7 @@ export class CreateUserComponent implements OnInit {
       score: 0,
       admin: false
     };
-    await this.afs.collection<any>('users').doc(this.afAuth.auth.currentUser.uid).set(userItem)
+    await this.afs.collection('users').doc(this.afAuth.auth.currentUser.uid).set(userItem)
       .catch((error) => {
         return alert(error);
       });

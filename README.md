@@ -14,6 +14,20 @@ This project uses Google's Firebase with the [Angular Fire 2 Library](https://gi
 
 This project also uses [CircleCI](https://circleci.com/) for deployments.
 
+## Project Organization
+This project is organized into the following folders:
+1. `docs` is where the markdown files are stored that are used in the instrutions site
+2. `frontend` is where the Angular 2+ application code resides
+3. `functions` is where the Google Firebase Cloud Functions code resides
+4. `scripts` is where all deployment scripts are located
+
+## Frontend Project Organization
+The frontend project is organied loosely based on feature in the following folders:
+1. `/src/app/activity` all components that are used to work with displaying and storing activity in the application
+2. `/src/app/static` all static pages that show users or activity in the application
+3. `/src/app/users` all components that are used to work with user accounts in the application
+4. `/src/app/models` any models used in the application
+
 ## Slack Integeration
 - The project includes a `slack integration` for team members.  Connect with our team on [slack](https://overwatch-challenge.slack.com).
 - The application uses Fireabase Cloud Functions to emit slack notifications (1) when users are registered and (2) when activities are created
@@ -29,21 +43,10 @@ This project also uses [CircleCI](https://circleci.com/) for deployments.
 - ```npm run environment-variables``` loads in the environment variables to the `environment.ts` and `environment.prod.ts` files respectively (see "Permissions" section below)
 
 ## Permissions
-- This project requires the following keys to be run locally (and when deploying to prod): 
-```
-firebase: {
-    apiKey: "",
-    authDomain: "",
-    databaseURL: "",
-    projectId: "",
-    storageBucket: "",
-    messagingSenderId: ""
-  }
-```
-
-If you want to run a copy of the project, please create a firebase project and follow the basic setup I outlined in my blog [post here](https://rhythmandbinary.com/2018/04/08/firebase/).
-
-I have already created a set of scripts that you can run that use environment variables.  You just need to create the following environment variables that correspond to the keys above: 
+- This project requires a created Firebase project to be run locally (and deployed)
+- Please consult the [Firebase documentation](https://firebase.google.com/docs/web/setup/?authuser=0#config-object) for how to set this up  
+- Please also consult my blog [post here](https://rhythmandbinary.com/2018/04/08/firebase/)
+- As a security precaution, the keys have all been replaced with alias values in this project.  These correspond to environment variables.  I've created a script that you can run to populate these values (once you've created a Firebase project).  You just need to create the following environment variables that correspond to the keys above: 
 - `OC_apiKey`
 - `OC_authDomain`
 - `OC_databaseURL`
@@ -67,7 +70,7 @@ and that will copy them over to the corresponding values in the `environment.ts`
 
 ## Future Improvements
 Future improvements on the horizon (PR's Welcome!):
-1. Refactor service calls to be in specific classes for Authentication and Storage
-2. Add more visual elements
-3. Add to the documentation site (docs folder)
-4. Add testing with Cypress
+1. Refactor service calls to be in specific classes around their function
+2. Build out more tests for code coverage (potentially may be using Cypress for this in the future)
+3. Add more visual elements
+4. Add more details to the instructions (docs) site
