@@ -15,6 +15,9 @@ jobs:
             - run:
                 name: environment variables
                 command: npm run environment-variables
+            - run:
+                name: go into frontend directory
+                command: cd frontend
             - restore_cache:
                 keys:
                     - v1-dependencies-{{ checksum "package.json" }}
@@ -27,17 +30,21 @@ jobs:
                     - node_modules
             - run:
                 name: Linting
-                command: npm run frontend-lint
+                command: npm run lint
             - run:
                 name: Testing
-                command: npm run frontend-test
+                command: npm run prod-test
             - run:
                 name: Building
-                command: npm run frontend-build
+                command: npm run prod-build
+            - run:
+                name: go into parent directory
+                command: cd ..
             - save_cache:
                 key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
                 paths:
-                    - dist
+                    - frontend/dist
+                    - frontend/package.json
                     - package.json
                     - firebase.json
                     - .firebaserc

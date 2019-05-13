@@ -9,7 +9,9 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "coverage-report": "ng test --code-coverage --watch=true",
-    "delete-coverage": "rm -rf coverage"
+    "delete-coverage": "rm -rf coverage",
+    "prod-test": "ng test --watch=false",
+    "prod-build": "ng build --prod"
   },
   "private": true,
   "dependencies": {
