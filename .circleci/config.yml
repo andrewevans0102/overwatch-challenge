@@ -15,31 +15,25 @@ jobs:
             - run:
                 name: environment variables
                 command: npm run environment-variables
-            - run:
-                name: go into frontend directory
-                command: cd frontend
             - restore_cache:
                 keys:
                     - v1-dependencies-{{ checksum "package.json" }}
             - run:
                 name: Install dependencies
-                command: npm install
+                command: npm run frontend-install
             - save_cache:
                 key: v1-dependencies-{{ checksum "package.json" }}
                 paths:
                     - node_modules
             - run:
                 name: Linting
-                command: npm run lint
+                command: npm run frontend-lint
             - run:
                 name: Testing
-                command: npm run prod-test
+                command: npm run frontend-test
             - run:
                 name: Building
-                command: npm run prod-build
-            - run:
-                name: go into parent directory
-                command: cd ..
+                command: npm run frontend-build
             - save_cache:
                 key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
                 paths:
