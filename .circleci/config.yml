@@ -19,6 +19,9 @@ jobs:
                 keys:
                     - v1-dependencies-{{ checksum "package.json" }}
             - run:
+                name: Rebuild Node Sass
+                command: npm run frontend-rebuild-node-sass
+            - run:
                 name: Install dependencies
                 command: npm run frontend-install
             # - run:
