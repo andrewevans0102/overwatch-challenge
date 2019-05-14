@@ -12,7 +12,7 @@
     "delete-coverage": "rm -rf coverage",
     "prod-test": "ng test --watch=false",
     "prod-build": "ng build --prod",
-    "node-sass": "npm install node-sass",
+    "node-sass": "npm install node-sass@4.12.0",
     "rebuild-node-sass": "npm rebuild node-sass"
   },
   "private": true,
