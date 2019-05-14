@@ -21,9 +21,9 @@ jobs:
             - run:
                 name: Install dependencies
                 command: npm run frontend-install
-            - run:
-                name: Node Sass
-                command: npm run frontend-install-node-sass
+            # - run:
+            #     name: Node Sass
+            #     command: npm run frontend-install-node-sass
             - run:
                 name: Rebuild Node Sass
                 command: npm run frontend-rebuild-node-sass
