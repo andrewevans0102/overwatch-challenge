@@ -23,10 +23,10 @@ jobs:
                 command: npm run frontend-install
             - run:
                 name: Node Sass
-                command: npm install node-sass
+                command: npm run frontend-install-node-sass
             - run:
                 name: Rebuild Node Sass
-                command: npm rebuild node-sass
+                command: npm run frontend-rebuild-node-sass
             - save_cache:
                 key: v1-dependencies-{{ checksum "package.json" }}
                 paths:

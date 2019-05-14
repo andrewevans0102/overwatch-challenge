@@ -11,7 +11,9 @@
     "coverage-report": "ng test --code-coverage --watch=true",
     "delete-coverage": "rm -rf coverage",
     "prod-test": "ng test --watch=false",
-    "prod-build": "ng build --prod"
+    "prod-build": "ng build --prod",
+    "node-sass": "npm install node-sass",
+    "rebuild-node-sass": "npm rebuild node-sass"
   },
   "private": true,
   "dependencies": {
