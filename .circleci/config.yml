@@ -38,6 +38,9 @@ jobs:
                 name: Linting
                 command: npm run frontend-lint
             - run:
+                name: Node Sass
+                command: npm run frontend-install-node-sass
+            - run:
                 name: Testing
                 command: npm run frontend-test
             - run:
