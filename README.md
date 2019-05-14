@@ -70,6 +70,14 @@ npm run environment-variables
 ```
 and that will copy them over to the corresponding values in the `environment.ts` and `environment.prod.ts` files as well as the Firebase Cloud Functions `index.js` file.
 
+# User Guide
+- User guide code is in the `docs` folder
+- User guide is built with [MkDocs](https://www.mkdocs.org/)
+- In order to deploy a new copy of the user guide, you'll need to have MkDocs installed on your computer by following the [directions here](https://www.mkdocs.org/#installation)
+- Once you have MkDocs installed, build the site by running (from the project root) `npm run docs-build`
+- When you're ready to deploy the site, deploy the site to be hosted on GitHub pages with `npm run docs-deploy`
+- Note that the message for the commit includes "[ci skip]", this is so that CircleCI will not run a build on the gh-pages branch
+
 ## Future Improvements
 Future improvements on the horizon (PR's Welcome!):
 1. Refactor service calls to be in specific classes around their function

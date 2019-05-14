@@ -5,3 +5,5 @@ Whenver an activity is created, your score will go up and is present on the main
 ![content_screen](img/content_screen.png)
 
 ![high_score](img/high_score.png)
+
+[click here to go back to the main site](https://overwatch-challenge.com/home)

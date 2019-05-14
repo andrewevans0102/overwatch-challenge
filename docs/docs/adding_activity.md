@@ -7,3 +7,5 @@ In order to add an activity, select the dropdown and choose "Create Activity" an
 ![menu](img/menu.png)
 
 ![activity_dialog](img/activity_dialog.png)
+
+[click here to go back to the main site](https://overwatch-challenge.com/home)

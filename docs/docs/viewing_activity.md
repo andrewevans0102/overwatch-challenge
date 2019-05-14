@@ -9,3 +9,5 @@ When a score is cleared ([scoring](scoring.md)), these activities remain listed 
 As a user, you can delete any activity you've created.  This is good in the case that you accidentally create somthing or misspell a name etc.
 
 ![view_activity](img/view_activity.png)
+
+[click here to go back to the main site](https://overwatch-challenge.com/home)

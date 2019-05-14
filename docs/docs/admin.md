@@ -11,3 +11,5 @@ When scores are "cleared" the top 3 scores are recorded in the "high score" page
 ![admin_menu](img/admin_menu.png)
 
 ![admin_screen](img/admin_screen.png)
+
+[click here to go back to the main site](https://overwatch-challenge.com/home)

@@ -11,3 +11,5 @@ This is all done with Google Firebase Cloud Functions.  Whenever records are add
 ![slack_activity](img/slack_activity.png)
 
 ![slack_user](img/slack_user.png)
+
+[click here to go back to the main site](https://overwatch-challenge.com/home)

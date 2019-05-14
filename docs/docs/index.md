@@ -25,3 +25,5 @@ Check out some of the basic guides here on how to get started (its very intuitiv
 Hope you enjoy the Overwatch Challenge!
 
 ![Trophy](img/trophy_small.png)
+
+[click here to go back to the main site](https://overwatch-challenge.com/home)
