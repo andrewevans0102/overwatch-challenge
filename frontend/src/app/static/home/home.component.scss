@@ -74,4 +74,17 @@ input[type=checkbox]:checked + label.strikethrough{
   align-items: center;
   flex-direction: column;
   margin: 1em;
+  color: gold;
+}
+
+.trophy-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 4em;
+}
+
+.trophy {
+  width: 10em;
+  height: 12em;
 }

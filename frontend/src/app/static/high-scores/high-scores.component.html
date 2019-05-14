@@ -1,9 +1,7 @@
-<h1>High Scores</h1>
-
-<!-- <li>First Place <mat-icon>star_border</mat-icon></li>
-<li>Second Place <mat-icon>cake</mat-icon></li>
-<li>Third Place <mat-icon>casino</mat-icon></li> -->
-<button mat-raised-button color="warn" type="button" (click)="goBack()">Go Back</button>
+<div class="top-page">
+  <h1>High Scores</h1>
+  <button mat-raised-button color="warn" type="button" (click)="goBack()">Go Back</button>
+</div>
 <table class="table table-dark">
   <tr *ngFor="let hs of highScores | async">
     <td>
