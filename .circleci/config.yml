@@ -43,12 +43,12 @@ jobs:
             - save_cache:
                 key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
                 paths:
-                    - frontend/dist
-                    - frontend/package.json
-                    - package.json
-                    - firebase.json
-                    - .firebaserc
+                    - frontend
                     - functions
+                    - package.json
+                    - .firebaserc
+                    - firebase.json
+
     deploy:
         docker:
             - image: circleci/node:chakracore-8.11-browsers-legacy
@@ -63,11 +63,11 @@ jobs:
                 name: Install Firebase
                 command: npm install --save-dev firebase-tools
             - run:
-                name: Deploy Master to Firebase
-                command: npm run frontend-deploy
+                name: Functions Install
+                command: npm run functions-install
             - run:
-                name: Deploy Cloud Functions to Firebase
-                command: npm run functions-deploy
+                name: Deploy Master to Firebase
+                command: firebase deploy
 
 workflows:
     version: 2
