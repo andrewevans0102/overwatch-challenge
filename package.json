@@ -11,7 +11,7 @@
     "frontend-install": "cd frontend; npm install",
     "frontend-serve": "cd frontend; ng serve",
     "frontend-lint": "cd frontend; npm run lint",
-    "frontend-test": "cd frontend; ng test --watch=false",
+    "frontend-test": "cd frontend; npm run prod-test",
     "frontend-deploy": "cd frontend; firebase deploy",
     "environment-variables": "python scripts/environment_variables.py $OC_apiKey $OC_authDomain $OC_databaseURL $OC_projectId $OC_storageBucket $OC_messageSenderId $OC_slack1 $OC_slack2",
     "functions-serve": "cd functions; firebase serve --only functions",
