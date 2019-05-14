@@ -73,10 +73,14 @@ workflows:
     version: 2
     -deploy:
         jobs:
-        - build
+        - build:
+            branches:
+                ignore:
+                    - gh-pages
         - deploy:
             requires:
                 - build
             filters:
                 branches:
                     only: master
+                    ignore: gh-pages

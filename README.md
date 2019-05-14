@@ -2,6 +2,8 @@
 
 This is the repo for the Overwatch Challenge Open Source project.
 
+Please check out the User Guide for visual instructions [here](https://andrewevans02.github.io/overwatch-challenge/).
+
 This project provides an application that teams can use to gamify their learning processes.
 - Users create "Activities" every time they learn somthing.
 - Once a week (i.e. Friday) the team admin will clear the scores and save the 1st, 2nd, and 3rd place winners.  Then the team can share what they learned that week in as much (or little) time as they like.

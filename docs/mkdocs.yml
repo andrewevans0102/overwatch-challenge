@@ -1,7 +1,8 @@
 site_name: Overwatch Challenge User Guide
 pages:
-    - Home: index.md
-    - Adding Activities: adding_activities.md
+    - Adding Activity: adding_activity.md
+    - Viewing Activity: viewing_activity.md
     - Scoring: scoring.md
+    - Slack Integration: slack_integration.md
     - Admin: admin.md
 theme: readthedocs
