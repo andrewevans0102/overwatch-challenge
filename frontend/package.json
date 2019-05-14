@@ -13,7 +13,8 @@
     "prod-test": "ng test --watch=false",
     "prod-build": "ng build --prod",
     "node-sass": "npm install node-sass",
-    "rebuild-node-sass": "npm rebuild node-sass --force"
+    "rebuild-node-sass": "npm rebuild node-sass --force",
+    "prod-deploy": "firebase deploy"
   },
   "private": true,
   "dependencies": {
