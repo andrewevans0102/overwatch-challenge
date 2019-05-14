@@ -6,7 +6,7 @@ This is just for controlling who can do specific functions like clearning the sc
 
 Admins can clear the score and also make other users admins with the admin screen and clear score button.
 
-When scores are "cleared" the top 3 scores are recorded in the "high score" page and then all users scores are made to be 0.
+When scores are "cleared" the top 3 scores are recorded in the "high score" page, and then all users scores are made to be 0.
 
 ![admin_menu](img/admin_menu.png)
 

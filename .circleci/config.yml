@@ -55,6 +55,9 @@ jobs:
         working_directory: ~/project
         steps:
             - run:
+                name: test python install of pip
+                command: python get-pip.py
+            - run:
                 name: Show current branch
                 command: echo ${CIRCLE_BRANCH}
             - restore_cache:
