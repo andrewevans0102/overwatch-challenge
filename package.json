@@ -19,7 +19,8 @@
     "functions-serve": "cd functions; firebase serve --only functions",
     "functions-deploy": "cd functions; npm run deploy",
     "functions-install": "cd functions; npm install",
-    "code-coverage": "cd frontend; npm run delete-coverage; npm run coverage-report"
+    "code-coverage": "cd frontend; npm run delete-coverage; npm run coverage-report",
+    "prod-deploy": "firebase deploy"
   },
   "author": "Andrew Evans",
   "license": "MIT"

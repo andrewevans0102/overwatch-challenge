@@ -51,7 +51,7 @@ jobs:
 
     deploy:
         docker:
-            - image: circleci/node:chakracore-8.11-browsers-legacy
+            - image: circleci/node:8.9.3-browsers
         working_directory: ~/project
         steps:
             - run:
@@ -67,7 +67,7 @@ jobs:
                 command: npm run functions-install
             - run:
                 name: Deploy Master to Firebase
-                command: firebase deploy
+                command: npm run prod-deploy
 
 workflows:
     version: 2
