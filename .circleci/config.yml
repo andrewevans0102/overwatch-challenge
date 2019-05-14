@@ -24,9 +24,9 @@ jobs:
             # - run:
             #     name: Node Sass
             #     command: npm run frontend-install-node-sass
-            - run:
-                name: Rebuild Node Sass
-                command: npm run frontend-rebuild-node-sass
+            # - run:
+            #     name: Rebuild Node Sass
+            #     command: npm run frontend-rebuild-node-sass
             - save_cache:
                 key: v1-dependencies-{{ checksum "package.json" }}
                 paths:
