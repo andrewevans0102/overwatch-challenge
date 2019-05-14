@@ -68,6 +68,15 @@ jobs:
             - run:
                 name: Deploy Master to Firebase
                 command: npm run prod-deploy
+            - run:
+                name: install MkDocs
+                command: pip install mkdocs
+            - run:
+                name: build MkDocs user guide
+                command: npm run docs-build
+            - run:
+                name: deploy MkDocs user guide
+                command: npm run docs-deploy
 
 workflows:
     version: 2

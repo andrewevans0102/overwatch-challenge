@@ -20,7 +20,9 @@
     "functions-deploy": "cd functions; npm run deploy",
     "functions-install": "cd functions; npm install",
     "code-coverage": "cd frontend; npm run delete-coverage; npm run coverage-report",
-    "prod-deploy": "firebase deploy"
+    "prod-deploy": "firebase deploy",
+    "docs-build": "cd docs; mkdocs build",
+    "docs-deploy": "cd docs; mkdocs gh-deploy -m \"[ci skip]\""
   },
   "author": "Andrew Evans",
   "license": "MIT"
