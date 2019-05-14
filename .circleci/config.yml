@@ -15,9 +15,9 @@ jobs:
             - run:
                 name: environment variables
                 command: npm run environment-variables
-            - restore_cache:
-                keys:
-                    - v1-dependencies-{{ checksum "package.json" }}
+            # - restore_cache:
+            #     keys:
+            #         - v1-dependencies-{{ checksum "package.json" }}
             - run:
                 name: Rebuild Node Sass
                 command: npm run frontend-rebuild-node-sass
