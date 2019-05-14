@@ -3,7 +3,6 @@ jobs:
     build:
         working_directory: ~/project
         docker:
-            # - image: circleci/node:chakracore-8.11-browsers-legacy
             - image: circleci/node:8.9.3-browsers
         steps:
             - checkout
@@ -16,25 +15,19 @@ jobs:
             - run:
                 name: environment variables
                 command: npm run environment-variables
-            # - restore_cache:
-            #     keys:
-            #         - v1-dependencies-{{ checksum "package.json" }}
+            - restore_cache:
+                keys:
+                    - v1-dependencies-{{ checksum "package.json" }}
             - run:
                 name: Rebuild Node Sass
                 command: npm run frontend-rebuild-node-sass
             - run:
                 name: Install dependencies
                 command: npm run frontend-install
-            # - run:
-            #     name: Node Sass
-            #     command: npm run frontend-install-node-sass
-            # - run:
-            #     name: Rebuild Node Sass
-            #     command: npm run frontend-rebuild-node-sass
             - save_cache:
                 key: v1-dependencies-{{ checksum "package.json" }}
                 paths:
-                    - node_modules
+                    - frontend/node_modules
             - run:
                 name: Linting
                 command: npm run frontend-lint

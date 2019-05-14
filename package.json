@@ -7,7 +7,7 @@
     "doc": "docs"
   },
   "scripts": {
-    "frontend-build": "cd frontend; ng build --prod",
+    "frontend-build": "cd frontend; npm run prod-build",
     "frontend-install": "cd frontend; npm install",
     "frontend-serve": "cd frontend; ng serve",
     "frontend-lint": "cd frontend; npm run lint",
