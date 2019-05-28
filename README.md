@@ -2,7 +2,7 @@
 
 This is the repo for the Overwatch Challenge Open Source project.
 
-Please check out the User Guide for visual instructions [here](https://andrewevans02.github.io/overwatch-challenge/).
+Please check out the User Guide for visual instructions [here](https://andrewevans0102.github.io/overwatch-challenge/).
 
 This project provides an application that teams can use to gamify their learning processes.
 - Users create "Activities" every time they learn somthing.
@@ -31,7 +31,7 @@ The frontend project is organied loosely based on feature in the following folde
 4. `/src/app/models` any models used in the application
 
 ## Slack Integeration
-- The project includes a `slack integration` for team members.  Connect with our team on [slack](https://overwatch-challenge.slack.com).
+- The project includes a `slack integration` for team members.  Once you get registered, one of the admins can send you an invite to the slack channel.
 - The application uses Fireabase Cloud Functions to emit slack notifications (1) when users are registered and (2) when activities are created
 - The slack webhooks are also defined within the hosted project and are also environment variables in the open source repo
 - If you want to creat your own webhooks or use these, please contact the repo owner for more information
