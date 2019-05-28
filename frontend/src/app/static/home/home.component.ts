@@ -12,14 +12,10 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(public afs: AngularFirestore, public afAuth: AngularFireAuth, public router: Router) { }
+  constructor(public router: Router) { }
 
   ngOnInit() {
-    this.afAuth.auth.onAuthStateChanged(user => {
-      if (user) {
-        this.router.navigateByUrl('/content');
-      }
-    });
+
   }
 
   createUser() {
