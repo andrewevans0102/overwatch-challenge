@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
         return alert(error);
       });
 
-    this.router.navigateByUrl('/home');
+    this.router.navigateByUrl('/content');
   }
 
   getEmailErrorMessage() {
