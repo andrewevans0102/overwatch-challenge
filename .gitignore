@@ -68,3 +68,9 @@ docs/site/
 
 # dist
 dist/
+
+# frontend package-lock.json
+frontend/package-lock.json
+
+# functions package-lock.json 
+functions/package-lock.json
