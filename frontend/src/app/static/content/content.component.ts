@@ -22,6 +22,8 @@ export class ContentComponent implements OnInit {
     this.afAuth.auth.onAuthStateChanged(user => {
       if (user) {
         this.selectUser(user.uid);
+      } else {
+        this.router.navigateByUrl('/home');
       }
     });
 
