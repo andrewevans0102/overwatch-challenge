@@ -25,6 +25,7 @@ jobs:
                 key: v1-dependencies-{{ checksum "package.json" }}
                 paths:
                     - frontend/node_modules
+                    - /home/circleci/.cache/Cypress
             - run:
                 name: Linting
                 command: npm run frontend-lint
