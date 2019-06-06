@@ -18,7 +18,8 @@
     "cypress-open": "./node_modules/.bin/cypress open",
     "cypress-run": "./node_modules/.bin/cypress run",
     "cypress-test": "concurrently \"ng serve\" \"npm run cypress-open\"",
-    "prod-cypress": "start-server-and-test \"ng serve\" http-get://localhost:4200 \"npm run cypress-run\""
+    "prod-cypress": "start-server-and-test \"ng serve\" http-get://localhost:4200 \"npm run cypress-run\"",
+    "cypress-install": "npm install cypress --save-dev"
   },
   "private": true,
   "dependencies": {
