@@ -32,6 +32,9 @@ jobs:
                 name: Testing
                 command: npm run frontend-test
             - run:
+                name: e2e Testing
+                command: npm run frontend-cypress-run
+            - run:
                 name: Building
                 command: npm run frontend-build
             - save_cache:

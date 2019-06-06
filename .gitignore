@@ -74,3 +74,9 @@ frontend/package-lock.json
 
 # functions package-lock.json 
 functions/package-lock.json
+
+# cypress videos
+frontend/cypress/videos/
+
+# cypress screenshots
+frontend/cypress/screenshots/

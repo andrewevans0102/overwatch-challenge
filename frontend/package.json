@@ -16,7 +16,9 @@
     "rebuild-node-sass": "npm rebuild node-sass --force",
     "prod-deploy": "firebase deploy",
     "cypress-open": "./node_modules/.bin/cypress open",
-    "cypress-test": "concurrently \"ng serve\" \"npm run cypress-open\""
+    "cypress-run": "./node_modules/.bin/cypress run",
+    "cypress-test": "concurrently \"ng serve\" \"npm run cypress-open\"",
+    "prod-cypress": "start-server-and-test \"ng serve\" http-get://localhost:4200 \"npm run cypress-run\""
   },
   "private": true,
   "dependencies": {
@@ -37,6 +39,7 @@
     "hammerjs": "^2.0.8",
     "node-sass": "^4.12.0",
     "rxjs": "~6.3.3",
+    "start-server-and-test": "^1.9.1",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.26"
   },
