@@ -78,6 +78,14 @@ and that will copy them over to the corresponding values in the `environment.ts`
 - When you're ready to deploy the site, deploy the site to be hosted on GitHub pages with `npm run docs-deploy`
 - Note that the message for the commit includes "[ci skip]", this is so that CircleCI will not run a build on the gh-pages branch
 
+# Cypress Testing
+- The frontend application uses Cypress for e2e testing
+- To run tests from the project root run `npm run frontend-cypress-test`
+- Note that you'll need to run the npm script for environment variables first with `npm run environment-variables` because the values used in testing are Cypress environment variables ([see docs for more info](https://docs.cypress.io/guides/guides/environment-variables.html#Setting))
+- When the project is deployed with CircleCI, Cypress is run in the pipeline with `npm run frontend-cypress-run`
+- When running the cypress tests for the frontend application, the npm module [start-server-and-test](https://www.npmjs.com/package/start-server-and-test) is used
+- The use of `http-get` was necessary with `start-server-and-test` because the frontend is an Angular Webpack project ([see special note here](https://www.npmjs.com/package/start-server-and-test#note-for-webpack-dev-server-users))
+
 ## Future Improvements
 Future improvements on the horizon (PR's Welcome!):
 1. Refactor service calls to be in specific classes around their function
