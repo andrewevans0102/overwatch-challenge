@@ -47,6 +47,8 @@ try:
   filedata = filedata.replace('cypress_test_user_password', sys.argv[10])
   filedata = filedata.replace('cypress_test_user_first_name', sys.argv[11])
   filedata = filedata.replace('cypress_test_user_last_name', sys.argv[12])
+  filedata = filedata.replace('cypress_project_record_id', sys.argv[13])
+  filedata = filedata.replace('cypress_test_base_url', sys.argv[14])
 
   with open('frontend/cypress.json', 'w') as file:
     file.write(filedata)

@@ -1,9 +1,10 @@
 {
-  "baseUrl": "http://localhost:4200",
+  "baseUrl": "cypress_test_base_url",
   "env": {
     "test-email": "cypress_test_user_email",
     "test-password": "cypress_test_user_password",
     "test-user-first-name": "cypress_test_user_first_name",
     "test-user-last-name": "cypress_test_user_last_name"
-  }
+  },
+  "projectId": "cypress_project_record_id"
 }
