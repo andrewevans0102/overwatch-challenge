@@ -30,7 +30,7 @@ describe('create user e2e test', function () {
     })
   })
 
-  describe('enter all fieldsand click create user button with error message', function() {
+  describe('enter all fields and click create user button with error message', function() {
     it('access the homepage and enter all fields for create user', function() {
       cy.visit('/home')
       cy.contains('Create User').click()
@@ -39,6 +39,7 @@ describe('create user e2e test', function () {
       cy.get('#firstName').type(Cypress.env('test-user-first-name'))
       cy.get('#lastName').type(Cypress.env('test-user-last-name'))
       cy.get('#create-button').click()
+      cy.wait(1000)
       cy.wait('@create').then((createResponse) => {
         assert.equal(createResponse.response.body.error.message, 'EMAIL_EXISTS');
       });

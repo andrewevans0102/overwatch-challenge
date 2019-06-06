@@ -25,6 +25,7 @@ describe('login user e2e test', function () {
       cy.get('#login').click()
       cy.get('#email').type(Cypress.env('test-email'))
       cy.get('#password').type(Cypress.env('test-password'))
+      cy.wait(1000)
       cy.get('#login-button').click()
       cy.get('#welcome-title').should('contain', 'Welcome ' + Cypress.env('test-user-first-name'))
     })
