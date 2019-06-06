@@ -29,7 +29,6 @@ try:
   with open('frontend/src/environments/environment.prod.ts', 'w') as file:
     file.write(filedata)
 
-
   # index.js
   with open('functions/index.js', 'r') as file :
     filedata = file.read()
@@ -38,6 +37,18 @@ try:
   filedata = filedata.replace('OC_slack2', sys.argv[8])
 
   with open('functions/index.js', 'w') as file:
+    file.write(filedata)
+
+  # cypress.json
+  with open('frontend/cypress.json', 'r') as file :
+    filedata = file.read()
+  
+  filedata = filedata.replace('cypress_test_user_email', sys.argv[9])
+  filedata = filedata.replace('cypress_test_user_password', sys.argv[10])
+  filedata = filedata.replace('cypress_test_user_first_name', sys.argv[11])
+  filedata = filedata.replace('cypress_test_user_last_name', sys.argv[12])
+
+  with open('frontend/cypress.json', 'w') as file:
     file.write(filedata)
 
 except IOError:
