@@ -28,6 +28,6 @@ Cypress.Commands.add('login', () => {
   cy.visit('/home')
   cy.get('#login').click()
   cy.get('#email').type(Cypress.env('test-email'))
-  cy.get('#password').type(Cypress.env('test-password'))
+  cy.get('#password').type(Cypress.env('test-password'), { log: false })
   cy.get('#login-button > .mat-button-wrapper').click()
 });
