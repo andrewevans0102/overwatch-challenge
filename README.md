@@ -56,7 +56,8 @@ The frontend project is organied loosely based on feature in the following folde
 - `OC_storageBucket`
 - `OC_messageSenderId`
 - `OC_slack1` (slack webhook for registerd users)
-- `OC_slack2` (slack webhook for createing activities)
+- `OC_slack2` (slack webhook for creating activities)
+- `OC_registration_code` (code required for creating new users)
 
 To export variables to your local bash session you just run the following:
 ```
