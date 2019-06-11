@@ -11,7 +11,7 @@ try:
   filedata = filedata.replace('OC_projectId', sys.argv[4])
   filedata = filedata.replace('OC_storageBucket', sys.argv[5]) 
   filedata = filedata.replace('OC_messageSenderId', sys.argv[6])
-  filedata = filedata.replace('OC_registration_Code', sys.argv[15])
+  filedata = filedata.replace('OC_registration_code', sys.argv[15])
       
   with open('frontend/src/environments/environment.ts', 'w') as file:
     file.write(filedata)
@@ -26,7 +26,7 @@ try:
   filedata = filedata.replace('OC_projectId', sys.argv[4])
   filedata = filedata.replace('OC_storageBucket', sys.argv[5]) 
   filedata = filedata.replace('OC_messageSenderId', sys.argv[6])
-  filedata = filedata.replace('OC_registration_Code', sys.argv[15])
+  filedata = filedata.replace('OC_registration_code', sys.argv[15])
 
   with open('frontend/src/environments/environment.prod.ts', 'w') as file:
     file.write(filedata)
@@ -51,7 +51,7 @@ try:
   filedata = filedata.replace('cypress_test_user_last_name', sys.argv[12])
   filedata = filedata.replace('cypress_project_record_id', sys.argv[13])
   filedata = filedata.replace('cypress_test_base_url', sys.argv[14])
-  filedata = filedata.replace('OC_registration_Code', sys.argv[15])
+  filedata = filedata.replace('OC_registration_code', sys.argv[15])
 
   with open('frontend/cypress.json', 'w') as file:
     file.write(filedata)
