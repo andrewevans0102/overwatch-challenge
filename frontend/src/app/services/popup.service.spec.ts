@@ -5,7 +5,7 @@ import { MaterialModule } from '../material/material.module';
 
 describe('PopupService', () => {
 
-  beforeEach(async() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [ MaterialModule ]
     });

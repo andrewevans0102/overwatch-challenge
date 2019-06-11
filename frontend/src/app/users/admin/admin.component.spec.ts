@@ -9,7 +9,6 @@ import { PopupService } from 'src/app/services/popup.service';
 describe('AdminComponent', () => {
   let component: AdminComponent;
   let fixture: ComponentFixture<AdminComponent>;
-  let popupService: PopupService
 
   // stub response from AngularFiresoreModule GET call
   const querySnapshot = {
