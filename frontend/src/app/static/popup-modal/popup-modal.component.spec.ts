@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { PopupModalComponent } from './popup-modal.component';
-import { MaterialModule } from '../material/material.module';
+import { MaterialModule } from '../../material/material.module';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { PopupModalData } from '../../models/popup-modal-data/popup-modal-data';
 
