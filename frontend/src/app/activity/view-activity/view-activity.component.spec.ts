@@ -5,6 +5,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { BehaviorSubject, of } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { RouterTestingModule } from '@angular/router/testing';
+import { MaterialModule } from '../../material/material.module';
 
 describe('ViewActivityComponent', () => {
   let component: ViewActivityComponent;
@@ -35,7 +36,8 @@ describe('ViewActivityComponent', () => {
         ViewActivityComponent
       ],
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        MaterialModule
       ],
       providers: [
         { provide: AngularFirestore, useValue: firestoreStub },

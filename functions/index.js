@@ -10,7 +10,7 @@ exports.createUser = functions.firestore
       const newValue = snap.data();
       const firstName = newValue.firstName;
       const lastName = newValue.lastName;
-      const slackWebhook = 'OC_slack1';  
+      const slackWebhook = 'https://hooks.slack.com/services/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';  
       const message = "user " + firstName + " " + lastName + " just registered!"; 
       
       request.post(
@@ -35,7 +35,7 @@ exports.createActivity = functions.firestore
       const description = newValue.description;
       const link = newValue.link;
       const points = newValue.points;
-      const slackWebhook = 'OC_slack2';  
+      const slackWebhook = 'https://hooks.slack.com/services/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';  
       const message = firstName + " " + lastName + " just added the activity " + activity
         + " for " + points + " points with the description \"" + description + ".\"  Here's a the link " + link + "."; 
 

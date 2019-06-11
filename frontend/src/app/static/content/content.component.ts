@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
+import { PopupModalData } from 'src/app/models/popup-modal-data/popup-modal-data';
+import { PopupService } from 'src/app/services/popup.service';
 
 @Component({
   selector: 'app-content',
@@ -16,7 +18,11 @@ export class ContentComponent implements OnInit {
   scores = [];
   admin: boolean;
 
-  constructor(public afs: AngularFirestore, public afAuth: AngularFireAuth, public router: Router) { }
+  constructor(
+    public afs: AngularFirestore,
+    public afAuth: AngularFireAuth,
+    public router: Router,
+    public popupService: PopupService) { }
 
   ngOnInit() {
     this.afAuth.auth.onAuthStateChanged(user => {
@@ -38,7 +44,7 @@ export class ContentComponent implements OnInit {
         this.admin = documentSnapshot.data().admin;
       })
       .catch((error) => {
-        return alert(error);
+        return this.errorPopup(error.message);
       });
   }
 
@@ -63,7 +69,7 @@ export class ContentComponent implements OnInit {
       .catch(() => new Error('Error when signing out'));
 
     if ( signOut instanceof Error ) {
-      alert(signOut);
+      return this.errorPopup(signOut.message);
     } else {
       this.router.navigateByUrl('/home');
     }
@@ -93,7 +99,7 @@ export class ContentComponent implements OnInit {
         }
       })
       .catch((error) => {
-        return alert(error);
+        return this.errorPopup(error.message);
       });
   }
 
@@ -121,7 +127,7 @@ export class ContentComponent implements OnInit {
     const idSaved = this.afs.createId();
     await this.afs.collection('highScores').doc(idSaved).set(saveScores)
     .catch((error) => {
-      return alert(error);
+      return this.errorPopup(error.message);
     });
 
     // create array of users to be updated with score of 0 here
@@ -141,19 +147,27 @@ export class ContentComponent implements OnInit {
         });
       })
     .catch((error) => {
-      return alert(error);
+      return this.errorPopup(error.message);
     });
 
     // loop through array and make all users score 0 formally
     for (const user of users) {
       await this.afs.collection('users').doc(user.uid).set(user)
       .catch((error) => {
-        return alert(error);
+        return this.errorPopup(error.message);
       });
     }
 
     // select users again for display
     this.selectScores();
+  }
+
+  errorPopup(message: string) {
+    const popupModalData = {
+      warn: message,
+      info: null
+    };
+    return this.popupService.openDialog(popupModalData);
   }
 
 }

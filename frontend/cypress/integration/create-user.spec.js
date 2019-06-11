@@ -27,6 +27,7 @@ describe('create user e2e test', function () {
       cy.get('#password').type(Cypress.env('test-password'), { log: false })
       cy.get('#firstName').type(Cypress.env('test-user-first-name'))
       cy.get('#lastName').type(Cypress.env('test-user-last-name'))
+      cy.get('#registrationCode').type(Cypress.env('test-user-registration-code'))
     })
   })
 
@@ -38,7 +39,9 @@ describe('create user e2e test', function () {
       cy.get('#password').type(Cypress.env('test-password'), { log: false })
       cy.get('#firstName').type(Cypress.env('test-user-first-name'))
       cy.get('#lastName').type(Cypress.env('test-user-last-name'))
+      cy.get('#registrationCode').type(Cypress.env('test-user-registration-code'))
       cy.get('#create-button').click()
+      cy.get('#closeButton').click()
       cy.wait('@create').then((createResponse) => {
         assert.equal(createResponse.response.body.error.message, 'EMAIL_EXISTS');
       });

@@ -12,7 +12,8 @@ export const environment = {
     projectId: 'OC_projectId',
     storageBucket: 'OC_storageBucket',
     messagingSenderId: 'OC_messagingSenderId'
-  }
+  },
+  registrationCode: 'OC_registration_code'
 };
 
 /*

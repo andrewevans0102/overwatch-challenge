@@ -3,6 +3,9 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { environment } from 'src/environments/environment';
+import { PopupService } from 'src/app/services/popup.service';
+import { PopupModalData } from 'src/app/models/popup-modal-data/popup-modal-data';
 
 @Component({
   selector: 'app-create-user',
@@ -16,10 +19,16 @@ export class CreateUserComponent implements OnInit {
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl(''),
     firstName: new FormControl(''),
-    lastName: new FormControl('')
+    lastName: new FormControl(''),
+    registrationCode: new FormControl('')
   });
+  popupModalData: PopupModalData;
 
-  constructor(public afs: AngularFirestore, public afAuth: AngularFireAuth, public router: Router) { }
+  constructor(
+    public afs: AngularFirestore,
+    public afAuth: AngularFireAuth,
+    public router: Router,
+    public popupService: PopupService) { }
 
   ngOnInit() {
   }
@@ -31,30 +40,44 @@ export class CreateUserComponent implements OnInit {
   }
 
   async createUser() {
+    // verify registration code is valid before creating user
+    if (this.createForm.controls.registrationCode.value !== environment.registrationCode) {
+      return this.errorPopup('invalid registration code');
+    }
+
     // create user with authentication service
     // on success this will also sign in this user to the current session
     await this.afAuth.auth.createUserWithEmailAndPassword(this.createForm.controls.email.value,
       this.createForm.controls.password.value)
+      .then(() => {
+          // save the user and the names to the users table for reference
+          // since the user is already signed in its ok to us the currentUser uid value here
+          const userItem = {
+            uid: this.afAuth.auth.currentUser.uid,
+            firstName: this.createForm.controls.firstName.value,
+            lastName: this.createForm.controls.lastName.value,
+            score: 0,
+            admin: false
+          };
+          this.addUserToUsersTable(userItem);
+      })
       .catch((error => {
-        return alert(error);
+        return this.errorPopup(error.message);
       }));
+  }
 
+  async addUserToUsersTable(userItem: any) {
     // save the user and the names to the users table for reference
     // since the user is already signed in its ok to us the currentUser uid value here
-    const userItem = {
-      uid: this.afAuth.auth.currentUser.uid,
-      firstName: this.createForm.controls.firstName.value,
-      lastName: this.createForm.controls.lastName.value,
-      score: 0,
-      admin: false
-    };
     await this.afs.collection('users').doc(this.afAuth.auth.currentUser.uid).set(userItem)
+      .then((documentSnapshot) => {
+        this.infoPopup('user was successfully created, you will now be logged in');
+        this.router.navigateByUrl('/content');
+      })
       .catch((error) => {
-        return alert(error);
+        this.errorPopup(error.message);
+        return this.router.navigateByUrl('/home');
       });
-
-    alert('user was successfully created, you will now be logged in');
-    this.router.navigateByUrl('/content');
   }
 
   login() {
@@ -64,12 +87,28 @@ export class CreateUserComponent implements OnInit {
         this.router.navigateByUrl('/home');
       })
       .catch((error => {
-        alert(error);
+        return this.errorPopup(error.message);
       }));
   }
 
   cancel() {
     this.router.navigateByUrl('/home');
+  }
+
+  errorPopup(message: string) {
+    const popupModalData = {
+      warn: message,
+      info: null
+    };
+    return this.popupService.openDialog(popupModalData);
+  }
+
+  infoPopup(message: string) {
+    const popupModalData: PopupModalData = {
+      warn: null,
+      info: message
+    };
+    return this.popupService.openDialog(popupModalData);
   }
 
 }

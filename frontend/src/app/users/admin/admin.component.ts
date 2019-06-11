@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
+import { PopupModalData } from 'src/app/models/popup-modal-data/popup-modal-data';
+import { PopupService } from 'src/app/services/popup.service';
 
 @Component({
   selector: 'app-admin',
@@ -15,7 +17,10 @@ export class AdminComponent implements OnInit {
     admin: new FormControl('')
   });
 
-  constructor(public afs: AngularFirestore, public router: Router) { }
+  constructor(
+    public afs: AngularFirestore,
+    public router: Router,
+    public popupService: PopupService) { }
 
   ngOnInit() {
     this.selectUsers();
@@ -38,7 +43,7 @@ export class AdminComponent implements OnInit {
         });
       })
       .catch((error) => {
-        return alert(error);
+        return this.errorPopup(error.message);
       });
   }
 
@@ -47,7 +52,7 @@ export class AdminComponent implements OnInit {
       console.log(user);
       await this.afs.collection('users').doc(user.uid).set(user)
       .catch((error) => {
-        return alert(error);
+        return this.errorPopup(error.message);
       });
     }
   }
@@ -58,6 +63,22 @@ export class AdminComponent implements OnInit {
 
   goBack() {
     this.router.navigateByUrl('/content');
+  }
+
+  errorPopup(message: string) {
+    const popupModalData = {
+      warn: message,
+      info: null
+    };
+    return this.popupService.openDialog(popupModalData);
+  }
+
+  infoPopup(message: string) {
+    const popupModalData: PopupModalData = {
+      warn: null,
+      info: message
+    };
+    return this.popupService.openDialog(popupModalData);
   }
 
 }

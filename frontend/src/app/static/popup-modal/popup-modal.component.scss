@@ -1,0 +1,23 @@
+.warn {
+  color: #F44336;
+  margin: 1em;
+  text-align: center;
+}
+
+.info {
+  color: #2196F3;
+  margin: 1em;
+}
+
+.mat-dialog-content ::ng-deep {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  padding: 1em;
+  border-radius: 2em;
+}
+
+.popup-container {
+  margin: 1em;
+}

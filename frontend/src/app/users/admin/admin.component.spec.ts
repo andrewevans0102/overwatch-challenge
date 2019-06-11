@@ -4,10 +4,12 @@ import { MaterialModule } from '../../material/material.module';
 import { AngularFirestoreModule, AngularFirestore } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
+import { PopupService } from 'src/app/services/popup.service';
 
 describe('AdminComponent', () => {
   let component: AdminComponent;
   let fixture: ComponentFixture<AdminComponent>;
+  let popupService: PopupService
 
   // stub response from AngularFiresoreModule GET call
   const querySnapshot = {
@@ -37,7 +39,8 @@ describe('AdminComponent', () => {
         RouterTestingModule
       ],
       providers: [
-        { provide: AngularFirestore, useValue: firestoreStub }
+        { provide: AngularFirestore, useValue: firestoreStub },
+        PopupService
       ]
     })
     .compileComponents();

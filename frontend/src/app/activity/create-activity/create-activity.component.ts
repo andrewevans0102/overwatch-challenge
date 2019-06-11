@@ -3,6 +3,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { PopupModalData } from 'src/app/models/popup-modal-data/popup-modal-data';
+import { PopupService } from 'src/app/services/popup.service';
 
 @Component({
   selector: 'app-create-activity',
@@ -23,7 +25,11 @@ export class CreateActivityComponent implements OnInit {
   score: number;
   admin: boolean;
 
-  constructor(public afs: AngularFirestore, public afAuth: AngularFireAuth, public router: Router) { }
+  constructor(
+    public afs: AngularFirestore,
+    public afAuth: AngularFireAuth,
+    public router: Router,
+    public popupService: PopupService) { }
 
   ngOnInit() {
     this.afAuth.auth.onAuthStateChanged(user => {
@@ -33,7 +39,6 @@ export class CreateActivityComponent implements OnInit {
     });
   }
 
-  // TODO move this to a service class
   async selectUser(uid: string) {
     await this.afs.collection('users').ref.doc(uid).get()
       .then((documentSnapshot) => {
@@ -43,7 +48,7 @@ export class CreateActivityComponent implements OnInit {
         this.admin = documentSnapshot.data().admin;
       })
       .catch((error) => {
-        return alert(error);
+        return this.errorPopup(error.message);
       });
   }
 
@@ -63,7 +68,7 @@ export class CreateActivityComponent implements OnInit {
     // save to the activity table for display
     await this.afs.collection('teamActivity').doc(idSaved).set(savedActivity)
       .catch((error) => {
-        return alert(error);
+        return this.errorPopup(error.message);
       });
 
     // update the score in the users table
@@ -77,7 +82,7 @@ export class CreateActivityComponent implements OnInit {
     };
     await this.afs.collection('users').doc(this.afAuth.auth.currentUser.uid).set(userUpdate)
       .catch((error) => {
-        return alert(error);
+        return this.errorPopup(error.message);
       });
 
     this.router.navigateByUrl('/content');
@@ -87,4 +92,11 @@ export class CreateActivityComponent implements OnInit {
     this.router.navigateByUrl('/content');
   }
 
+  errorPopup(message: string) {
+    const popupModalData = {
+      warn: message,
+      info: null
+    };
+    return this.popupService.openDialog(popupModalData);
+  }
 }

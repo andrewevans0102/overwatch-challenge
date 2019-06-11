@@ -17,6 +17,7 @@ import { CreateActivityComponent } from './activity/create-activity/create-activ
 import { ViewActivityComponent } from './activity/view-activity/view-activity.component';
 import { HighScoresComponent } from './static/high-scores/high-scores.component';
 import { AdminComponent } from './users/admin/admin.component';
+import { PopupModalComponent } from './static/popup-modal/popup-modal.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { AdminComponent } from './users/admin/admin.component';
     CreateActivityComponent,
     ViewActivityComponent,
     HighScoresComponent,
-    AdminComponent
+    AdminComponent,
+    PopupModalComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +43,8 @@ import { AdminComponent } from './users/admin/admin.component';
     AngularFirestoreModule,
     AngularFireAuthModule,
   ],
-  providers: [],
+  entryComponents: [ PopupModalComponent ],
+  providers: [ ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

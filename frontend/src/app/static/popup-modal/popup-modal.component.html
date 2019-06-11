@@ -1,0 +1,13 @@
+<div class="popup-container">
+  <h1 mat-dialog-title>Overwatch Challenge</h1>
+  <div mat-dialog-content *ngIf="data.warn !== null" class="warn">
+    {{ data.warn }}
+  </div>
+  <div mat-dialog-content *ngIf="data.info !== null" class="info">
+    {{ data.info }}
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="closeClick()" id="closeButton">Close</button>
+  </div>
+</div>
+

@@ -2,6 +2,8 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { PopupService } from 'src/app/services/popup.service';
+import { PopupModalData } from 'src/app/models/popup-modal-data/popup-modal-data';
 
 @Component({
   selector: 'app-login',
@@ -11,13 +13,15 @@ import { FormControl, Validators, FormGroup } from '@angular/forms';
 export class LoginComponent implements OnInit {
 
   hidePassword = true;
-  @Output() cancelButton = new EventEmitter<boolean>();
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('')
   });
 
-  constructor(public afAuth: AngularFireAuth, public router: Router) { }
+  constructor(
+    public afAuth: AngularFireAuth,
+    public router: Router,
+    public popupService: PopupService) { }
 
   ngOnInit() {
   }
@@ -26,7 +30,7 @@ export class LoginComponent implements OnInit {
     await this.afAuth.auth.signInWithEmailAndPassword(this.loginForm.controls.email.value,
       this.loginForm.controls.password.value)
       .catch((error) => {
-        return alert(error);
+        return this.errorPopup(error.message);
       });
 
     this.router.navigateByUrl('/content');
@@ -39,8 +43,14 @@ export class LoginComponent implements OnInit {
   }
 
   cancel() {
-    this.cancelButton.emit(true);
     this.router.navigateByUrl('/home');
   }
 
+  errorPopup(message: string) {
+    const popupModalData = {
+      warn: message,
+      info: null
+    };
+    return this.popupService.openDialog(popupModalData);
+  }
 }
