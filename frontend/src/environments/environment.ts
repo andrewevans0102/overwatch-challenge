@@ -4,23 +4,23 @@
 
 
 export const environment = {
-    production: false,
-    firebase: {
-      apiKey: '',
-      authDomain: '',
-      databaseURL: '',
-      projectId: '',
-      storageBucket: '',
-      messagingSenderId: ''
-    },
-    registrationCode: ''
-  };
+  production: false,
+  firebase: {
+    apiKey: 'AIzaSyAopja8E1__EBD_GdqWU1Lb6V2LmxZIL5A',
+    authDomain: 'overwatch-challenge-f2da8.firebaseapp.com',
+    databaseURL: 'https://overwatch-challenge-f2da8.firebaseio.com',
+    projectId: 'overwatch-challenge-f2da8',
+    storageBucket: '',
+    messagingSenderId: ''
+  },
+  registrationCode: 'LukeIAmYourFather'
+};
 
-  /*
-   * For easier debugging in development mode, you can import the following file
-   * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
-   *
-   * This import should be commented out in production mode because it will have a negative impact
-   * on performance if an error is thrown.
-   */
-  // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+/*
+ * For easier debugging in development mode, you can import the following file
+ * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
+ *
+ * This import should be commented out in production mode because it will have a negative impact
+ * on performance if an error is thrown.
+ */
+// import 'zone.js/dist/zone-error';  // Included with Angular CLI.
