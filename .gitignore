@@ -80,3 +80,12 @@ frontend/cypress/videos/
 
 # cypress screenshots
 frontend/cypress/screenshots/
+
+# environment.ts
+frontend/src/environments/environment.ts
+
+# environment.prod.ts
+frontend/src/environments/environment.prod.ts
+
+# cypress.json
+frontend/cypress.json
