@@ -1,11 +1,11 @@
 {
-  "baseUrl": "http://localhost:4200",
+  "baseUrl": "",
   "env": {
-    "test-email": "ReyReyLovesPorchTime@gmail.com",
-    "test-password": "lovinchessie",
-    "test-user-first-name": "ReyRey",
-    "test-user-last-name": "Evans",
-    "test-user-registration-code": "skywalker_061419"
+    "test-email": "",
+    "test-password": "",
+    "test-user-first-name": "",
+    "test-user-last-name": "",
+    "test-user-registration-code": ""
   },
-  "projectId": "2sb8q1"
+  "projectId": ""
 }
