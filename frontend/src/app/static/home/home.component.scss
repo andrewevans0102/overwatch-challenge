@@ -1,71 +1,6 @@
-.display-icon {
-  padding: 1em;
-}
-
-.display-spacer {
-  flex: 1 1 auto;
-}
-
-.login-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 2em;
-}
-
-.login-container > * {
-  width: 100%;
-}
-
-.add-button {
-  margin-right: 1em;
-}
-
-input[type=checkbox]:checked + label.strikethrough{
-  text-decoration: line-through;
-}
-
-.display-checkbox {
-  margin-right: 1em;
-}
-
-.display-list {
-  display: flex;
-  align-content: space-between;
-  border-bottom: solid;
-  border-color: lightblue;
-}
-
-.input-item {
-  display: flex;
-  justify-content: left;
-}
-
-.create-button {
-  margin-top: 1em;
-}
-
-.logo-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 2em;
-}
-
-// .logo-image {
-//   height: 50%;
-//   width: 50%;
-// }
-
 .button-container {
   display: flex;
   justify-content: space-around;
-}
-
-.title {
-  color: black
 }
 
 .title-container {
@@ -88,3 +23,26 @@ input[type=checkbox]:checked + label.strikethrough{
   width: 10em;
   height: 12em;
 }
+
+.info-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2em;
+}
+
+.info-container > ul > li > p {
+  font-size: 1.5em;
+}
+
+.info-container > ul > li > p > a {
+  margin: 0.25em;
+}
+
+// .title-container > h1 {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   text-align: center;
+//   margin: 0.5em;
+// }

@@ -33,8 +33,6 @@ The frontend project is organied loosely based on feature in the following folde
 ## Slack Integeration
 - The project includes a `slack integration` for team members.  Once you get registered, one of the admins can send you an invite to the slack channel.
 - The application uses Fireabase Cloud Functions to emit slack notifications (1) when users are registered and (2) when activities are created
-- The slack webhooks are also defined within the hosted project and are also environment variables in the open source repo
-- If you want to creat your own webhooks or use these, please contact the repo owner for more information
 
 ## Running Locally
 - ```npm run frontend-serve``` runs the frontend angular application locally
@@ -42,34 +40,17 @@ The frontend project is organied loosely based on feature in the following folde
 - ```npm run frontend-deploy``` deploys the frontend application to firebase
 - ```npm run functions-serve``` runs the firebase cloud functions locally
 - ```npm run functions-deploy``` deploys the firebase cloud functions
-- ```npm run environment-variables``` loads in the environment variables to the `environment.ts` and `environment.prod.ts` files respectively (see "Permissions" section below)
+- ```npm run environment-variables``` loads in the environment variables for the functions `index.js` file
+- ```npm run frontend-cypress-test``` runs the cypress tests locally with a test runner
+- ```npm run frontend-cypress-run``` runs the cypress tests headless for CI deployments
 
-## Permissions
+## Running With Your Own Firebase Project
 - This project requires a created Firebase project to be run locally (and deployed)
 - Please consult the [Firebase documentation](https://firebase.google.com/docs/web/setup/?authuser=0#config-object) for how to set this up  
 - Please also consult my blog [post here](https://rhythmandbinary.com/2018/04/08/firebase/)
-- As a security precaution, the keys have all been replaced with alias values in this project.  These correspond to environment variables.  I've created a script that you can run to populate these values (once you've created a Firebase project).  You just need to create the following environment variables that correspond to the keys above: 
-- `OC_apiKey`
-- `OC_authDomain`
-- `OC_databaseURL`
-- `OC_projectId`
-- `OC_storageBucket`
-- `OC_messageSenderId`
-- `OC_slack1` (slack webhook for registerd users)
-- `OC_slack2` (slack webhook for creating activities)
-- `OC_registration_code` (code required for creating new users)
-
-To export variables to your local bash session you just run the following:
-```
-export BASH_VARIABLE='<your_bash_variable>
-```
-If you want to permanently add them, you can add them to your bash profile.
-
-Once you've got the variables saved on your system run:
-```
-npm run environment-variables
-```
-and that will copy them over to the corresponding values in the `environment.ts` and `environment.prod.ts` files as well as the Firebase Cloud Functions `index.js` file.
+- Please also consult my blog post on how this [project implements the JAMstack architecture here](https://blog.angularindepth.com/why-building-with-a-jamstack-is-awesome-49618fd21198)
+- Please also consult my blog post on how [Firebase Cloud Functions work here](https://blog.angularindepth.com/why-firebase-cloud-functions-are-awesome-f4faeab630f7)
+- Note that the environment values necessary for a Firebase Project are stored in the `environment.ts` and `environment.prod.ts` files
 
 # User Guide
 - User guide code is in the `docs` folder
@@ -86,6 +67,8 @@ and that will copy them over to the corresponding values in the `environment.ts`
 - When the project is deployed with CircleCI, Cypress is run in the pipeline with `npm run frontend-cypress-run`
 - When running the cypress tests for the frontend application, the npm module [start-server-and-test](https://www.npmjs.com/package/start-server-and-test) is used
 - The use of `http-get` was necessary with `start-server-and-test` because the frontend is an Angular Webpack project ([see special note here](https://www.npmjs.com/package/start-server-and-test#note-for-webpack-dev-server-users))
+- Cypress environment variables are loaded in from the  `cypress.json` file
+- Please checkout my blog post on [Cypress Testing](https://blog.angularindepth.com/how-cypress-makes-testing-fun-a56da1294285)
 
 ## Future Improvements
 Future improvements on the horizon (PR's Welcome!):
