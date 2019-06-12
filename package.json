@@ -25,7 +25,9 @@
     "code-coverage": "cd frontend; npm run delete-coverage; npm run coverage-report",
     "prod-deploy": "firebase deploy",
     "docs-build": "cd docs; mkdocs build",
-    "docs-deploy": "cd docs; mkdocs gh-deploy -m \"[ci skip]\""
+    "docs-deploy": "cd docs; mkdocs gh-deploy -m \"[ci skip]\"",
+    "pre-commit": "./scripts/pre_commit.sh",
+    "post-commit": "./scripts/post_commit.sh"
   },
   "author": "Andrew Evans",
   "license": "MIT"
