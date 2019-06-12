@@ -6,7 +6,9 @@ Please check out the User Guide for visual instructions [here](https://andreweva
 
 This project provides an application that teams can use to gamify their learning processes.
 - Users create "Activities" every time they learn somthing.
-- Once a week (i.e. Friday) the team admin will clear the scores and save the 1st, 2nd, and 3rd place winners.  Then the team can share what they learned that week in as much (or little) time as they like.
+- Everyone comes together at the end of a week to see who scored the highest
+- Admins maintain the scores
+- Scores and activities are saved for future reference
 
 This project uses Google's Firebase with the [Angular Fire 2 Library](https://github.com/angular/angularfire2) for the following:
 1. Hosting

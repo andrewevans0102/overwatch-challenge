@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "frontend/dist",
+    "public": "frontend/dist/overwatch-challenge",
     "ignore": [
       "firebase.json",
       "**/.*",
