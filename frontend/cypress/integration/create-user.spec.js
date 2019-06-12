@@ -4,13 +4,6 @@ describe('create user e2e test', function () {
     cy.route('POST', 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser**').as('create')
   });
 
-  describe('Access Homepage', function() {
-    it('access the homepage when running locally', function() {
-      cy.visit('/home')
-      cy.get('h1').should('contain', 'Overwatch Challenge')
-    })
-  })
-
   describe('Access Homepage Click Create User', function() {
     it('access the homepage and clicks the create user', function() {
       cy.visit('/home')
