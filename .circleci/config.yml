@@ -15,6 +15,33 @@ jobs:
             - run:
                 name: environment variables
                 command: npm run environment-variables
+            - run:
+                name: environment file
+                command: curl -H "Authorization: token $GITHUB_TOKEN" -H "Accept: application/vnd.github.v3.raw" -O -L $OC_ENVIRONMENT
+            - run:
+                name: environment prod file
+                command: curl -H "Authorization: token $GITHUB_TOKEN" -H "Accept: application/vnd.github.v3.raw" -O -L $OC_ENVIRONMENT_PROD
+            - run:
+                name: cypress json file
+                command: curl -H "Authorization: token $GITHUB_TOKEN" -H "Accept: application/vnd.github.v3.raw" -O -L $OC_CYPRESS_JSON
+            - run:
+                name: delete old enviornment file
+                command: rm -rf frontend/src/environments/environment.ts
+            - run:
+                name: delete old enviornment file
+                command: rm -rf frontend/src/environments/environment.prod.ts
+            - run:
+                name: delete old enviornment file
+                command: rm -rf frontend/cypress.json
+            - run:
+                name: copy new files
+                command: cp environment.ts frontend/src/environments/environment.ts
+            - run:
+                name: copy new files
+                command: cp environment.prod.ts frontend/src/environments/environment.prod.ts
+            - run:
+                name: copy new files
+                command: cp cypress.json frontend/cypress.json            
             - restore_cache:
                 keys:
                     - v1-dependencies-{{ checksum "package.json" }}
