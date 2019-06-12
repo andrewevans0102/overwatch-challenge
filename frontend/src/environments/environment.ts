@@ -6,14 +6,14 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: 'AIzaSyAopja8E1__EBD_GdqWU1Lb6V2LmxZIL5A',
-    authDomain: 'overwatch-challenge-f2da8.firebaseapp.com',
-    databaseURL: 'https://overwatch-challenge-f2da8.firebaseio.com',
-    projectId: 'overwatch-challenge-f2da8',
+    apiKey: '',
+    authDomain: '',
+    databaseURL: '',
+    projectId: '',
     storageBucket: '',
     messagingSenderId: ''
   },
-  registrationCode: 'LukeIAmYourFather'
+  registrationCode: ''
 };
 
 /*
