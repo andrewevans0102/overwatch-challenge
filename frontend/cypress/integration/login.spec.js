@@ -1,11 +1,4 @@
 describe('login user e2e test', function () {
-  describe('Access Homepage', function() {
-    it('access the homepage when running locally', function() {
-      cy.visit('/home')
-      cy.get('h1').should('contain', 'Overwatch Challenge')
-    })
-  })
-
   describe('Access Homepage Click Login User', function() {
     it('access the homepage and clicks the login user', function() {
       cy.visit('/home')
