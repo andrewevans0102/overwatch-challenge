@@ -25,7 +25,7 @@ jobs:
                 name: cypress json file
                 command: curl -H "Authorization:token $GITHUB_TOKEN" -H "Accept:application/vnd.github.v3.raw" -O -L $OC_CYPRESS_JSON
             - run:
-                name: delete old enviornment file
+                name: delete old environment file
                 command: rm -rf frontend/src/environments/environment.ts
             - run:
                 name: delete old enviornment file
@@ -62,9 +62,9 @@ jobs:
             - run:
                 name: Testing
                 command: npm run frontend-test
-            - run:
-                name: e2e Testing
-                command: npm run frontend-cypress-run
+            # - run:
+            #     name: e2e Testing
+            #     command: npm run frontend-cypress-run
             - run:
                 name: Building
                 command: npm run frontend-build

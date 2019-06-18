@@ -12,8 +12,7 @@ export const environment = {
       projectId: '',
       storageBucket: '',
       messagingSenderId: ''
-    },
-    registrationCode: ''
+    }
   };
 
   /*
