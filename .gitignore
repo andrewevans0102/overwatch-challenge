@@ -89,3 +89,6 @@ frontend/src/environments/environment.prod.ts
 
 # cypress.json
 frontend/cypress.json
+
+# frontend dist angular bundle
+frontend/dist/
