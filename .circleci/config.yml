@@ -41,7 +41,16 @@ jobs:
                 command: cp environment.prod.ts frontend/src/environments/environment.prod.ts
             - run:
                 name: copy new files
-                command: cp cypress.json frontend/cypress.json            
+                command: cp cypress.json frontend/cypress.json      
+            - run:
+                name: delete original copied files
+                command: rm -rf environment.ts
+            - run:
+                name: delete original copied files
+                command: rm -rf environment.prod.ts
+            - run:
+                name: delete original copied files
+                command: rm -rf cypress.json      
             - restore_cache:
                 keys:
                     - v1-dependencies-{{ checksum "package.json" }}
