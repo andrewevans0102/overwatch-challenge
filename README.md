@@ -64,9 +64,8 @@ The frontend project is organized based on __feature__ in the following folders:
 - ```npm run frontend-deploy``` deploys the frontend application to firebase
 - ```npm run functions-serve``` runs the firebase cloud functions locally
 - ```npm run functions-deploy``` deploys the firebase cloud functions
-- ```npm run environment-variables``` loads in the environment variables for the functions `index.js` file
-- ```npm run frontend-cypress-test``` runs the cypress tests locally with a test runner
-- ```npm run frontend-cypress-run``` runs the cypress tests headless for CI deployments
+- ```npm run cypress-local``` runs the cypress tests locally with a test runner
+- ```npm run cupress-ci``` runs the cypress tests headless for CI deployments
 
 # Cypress Testing
 - The frontend application uses Cypress for e2e testing
@@ -96,5 +95,5 @@ The frontend project is organized based on __feature__ in the following folders:
 Future improvements on the horizon (PR's Welcome!):
 1. Refactor service calls to be in specific classes around their function
 2. Build out more tests for code coverage (potentially may be using Cypress for this in the future)
-3. Add more visual elements
+3. make application more responsive
 4. Add more details to the instructions (docs) site
