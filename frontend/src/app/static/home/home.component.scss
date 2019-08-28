@@ -1,6 +1,8 @@
 .button-container {
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .title-container {
@@ -16,33 +18,74 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 4em;
 }
 
 .trophy {
   width: 10em;
   height: 12em;
+  margin-top: 2em;
 }
 
-.info-container {
+.link-container {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 1em;
+}
+
+.link-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1em;
+}
+
+.link-item > a {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1em;
+  color: white;
+}
+
+.aid-image {
+  width: 75%;
+  height: 75%;
+}
+
+.link-item2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1em;
+  margin-top: 0;
+  color: white;
+}
+
+a {
+  color: white;
+}
+
+button {
+  margin: 0.5em;
+  // padding: 1em;
+  font-size: 1.5em;
+  width: 10em;
+}
+
+.slack-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slack-container > button {
+  font-size: 1em;
+  // height: 4em;
+  width: 20em;
+  padding: 0;
   margin: 2em;
 }
-
-.info-container > ul > li > p {
-  font-size: 1.5em;
-}
-
-.info-container > ul > li > p > a {
-  margin: 0.25em;
-}
-
-// .title-container > h1 {
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   text-align: center;
-//   margin: 0.5em;
-// }

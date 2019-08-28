@@ -1,0 +1,11 @@
+{
+  "baseUrl": "http://localhost:4200",
+  "env": {
+    "test-email": "atevans@email.wm.edu",
+    "test-password": "GreenBlanketCuddle2019",
+    "test-user-first-name": "Chessie",
+    "test-user-last-name": "Evans",
+    "activity-description": "Hello!  This activity was created by Chessie!",
+    "activity-link": "https://www.google.com"
+  }
+}

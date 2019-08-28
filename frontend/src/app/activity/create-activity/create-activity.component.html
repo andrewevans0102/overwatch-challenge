@@ -1,32 +1,29 @@
-<form [formGroup]="createForm" (ngSubmit)="createActivity()" class="create-container">
-  <h1>Create Activity</h1>
-  <mat-form-field>
-    <input matInput placeholder="Activity" formControlName="activity" required>
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="Description" formControlName="description" required>
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="Activity Link" formControlName="link" required>
-  </mat-form-field>
-  <mat-form-field>
-    <mat-select placeholder="Select Points" formControlName="points" required>
-      <mat-option value="10">10</mat-option>
-      <mat-option value="20">20</mat-option>
-      <mat-option value="30">30</mat-option>
-      <mat-option value="40">40</mat-option>
-      <mat-option value="50">50</mat-option>
-      <mat-option value="60">60</mat-option>
-      <mat-option value="70">70</mat-option>
-      <mat-option value="80">80</mat-option>
-      <mat-option value="90">90</mat-option>
-      <mat-option value="100">100</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <mat-error *ngIf="createForm.hasError('required')">activity, description, link, and points are required</mat-error>
-  <div class="button-container">
-    <button mat-raised-button color="primary" type="submit" [disabled]="!createForm.valid">Create</button>
-    <button mat-raised-button color="warn" type="button" (click)="cancel()">Cancel</button>
-  </div>
-</form>
+<div class="form-container">
+  <form [formGroup]="createForm" (ngSubmit)="createActivity()" class="create-container">
+    <h1>Create Activity</h1>
+    <mat-form-field>
+      <mat-select placeholder="Select Activity" formControlName="activity" required>
+        <mat-option value="Read Article">Read Article</mat-option>
+        <mat-option value="Wrote Blog Post">Wrote Blog Post</mat-option>
+        <mat-option value="Listened to Podcast">Listened to Podcast</mat-option>
+        <mat-option value="Watched Video">Watched Video</mat-option>
+        <mat-option value="Attended Lecture">Attended Lecture</mat-option>
+        <mat-option value="Built Hello World App">Built Hello World App</mat-option>
+        <mat-option value="Resolved Production Issue">Resolved Production Issue</mat-option>
+        <mat-option value="Attended Meetup">Attended Meetup</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Description" formControlName="description" required>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Activity Link" formControlName="link" required>
+    </mat-form-field>
+    <mat-error *ngIf="createForm.hasError('required')">please fill out all fields</mat-error>
+    <div class="button-container">
+      <button mat-raised-button color="primary" type="submit" [disabled]="!createForm.valid">Create</button>
+      <button mat-raised-button color="warn" type="button" (click)="cancel()">Cancel</button>
+    </div>
+  </form>
+</div>
 

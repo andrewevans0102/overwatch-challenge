@@ -8,3 +8,10 @@
 h1 {
   margin: 1em;
 }
+
+.name {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}

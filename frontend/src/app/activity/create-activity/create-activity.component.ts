@@ -53,6 +53,37 @@ export class CreateActivityComponent implements OnInit {
   }
 
   async createActivity() {
+    // this could potentially become an enum later
+    let aPoints = 0;
+    switch (this.createForm.controls.activity.value) {
+      case 'Read Article':
+        aPoints = 10;
+        break;
+      case 'Wrote Blog Post':
+        aPoints = 50;
+        break;
+      case 'Listened to Podcast':
+        aPoints = 10;
+        break;
+      case 'Watched Video':
+        aPoints = 10;
+        break;
+      case 'Attended Lecture':
+        aPoints = 20;
+        break;
+      case 'Built Hello World App':
+        aPoints = 50;
+        break;
+      case 'Resolved Production Issue':
+        aPoints = 50;
+        break;
+      case 'Attended Meetup':
+        aPoints = 20;
+        break;
+      default:
+        aPoints = 0;
+    }
+
     const idSaved = this.afs.createId();
     const savedActivity = {
       firstName: this.firstName,
@@ -61,18 +92,20 @@ export class CreateActivityComponent implements OnInit {
       activity: this.createForm.controls.activity.value,
       description: this.createForm.controls.description.value,
       link: this.createForm.controls.link.value,
-      points: this.createForm.controls.points.value,
-      id: idSaved
+      points: aPoints,
+      id: idSaved,
+      cleared: false,
+      recorded: Date.now()
     };
 
     // save to the activity table for display
-    await this.afs.collection('teamActivity').doc(idSaved).set(savedActivity)
+    await this.afs.collection('activity').doc(idSaved).set(savedActivity)
       .catch((error) => {
         return this.errorPopup(error.message);
       });
 
     // update the score in the users table
-    this.score = this.score + parseInt(this.createForm.controls.points.value, 10);
+    this.score = this.score + aPoints;
     const userUpdate = {
       uid: this.afAuth.auth.currentUser.uid,
       firstName: this.firstName,
@@ -81,15 +114,26 @@ export class CreateActivityComponent implements OnInit {
       admin: this.admin
     };
     await this.afs.collection('users').doc(this.afAuth.auth.currentUser.uid).set(userUpdate)
+      .then((success) => {
+        this.infoPopup('activity was created successfully');
+        this.router.navigateByUrl('/content');
+      })
       .catch((error) => {
-        return this.errorPopup(error.message);
+        this.errorPopup(error.message);
+        return;
       });
-
-    this.router.navigateByUrl('/content');
   }
 
   cancel() {
     this.router.navigateByUrl('/content');
+  }
+
+  infoPopup(message: string) {
+    const popupModalData: PopupModalData = {
+      warn: null,
+      info: message
+    };
+    return this.popupService.openDialog(popupModalData);
   }
 
   errorPopup(message: string) {

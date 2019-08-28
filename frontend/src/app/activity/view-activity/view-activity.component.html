@@ -5,21 +5,30 @@
 <table class="table table-dark">
   <thead>
     <tr>
-      <th scope="col">First Name</th>
-      <th scope="col">Last Name</th>
-      <th scope="col">Activity</th>
+      <th scope="col">Name</th>
+      <!-- <th scope="col">Last Name</th> -->
+      <!-- <th scope="col">Activity</th> -->
       <th scope="col">Description</th>
-      <th scope="col">Points</th>
+      <!-- <th scope="col">Points</th> -->
       <th scope="col">Delete</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let activity of teamActivity | async">
-      <td>{{ activity.firstName }}</td>
-      <td>{{ activity.lastName }}</td>
-      <td><a href="{{ activity.link }}">{{ activity.activity }}</a></td>
-      <td>{{ activity.description }}</td>
-      <td>{{ activity.points }}</td>
+      <td>
+        <div class="name">
+          <span>
+              {{ activity.firstName }}
+          </span>
+          <span>
+              {{ activity.lastName }}
+          </span>
+        </div>
+      </td>
+      <!-- <td>{{ activity.lastName }}</td> -->
+      <!-- <td>{{ activity.activity }}</td> -->
+      <td><a href="{{ activity.link }}">{{ activity.description }}</a></td>
+      <!-- <td>{{ activity.points }}</td> -->
       <td><button type="button" class="btn btn-danger round-button" (click)="deleteItem(activity)" *ngIf="activity.uid === this.afAuth.auth.currentUser.uid">X</button></td>
     </tr>
   </tbody>

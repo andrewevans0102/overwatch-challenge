@@ -149,12 +149,45 @@ export class ContentComponent implements OnInit {
     .catch((error) => {
       return this.errorPopup(error.message);
     });
-
     // loop through array and make all users score 0 formally
     for (const user of users) {
       await this.afs.collection('users').doc(user.uid).set(user)
       .catch((error) => {
         return this.errorPopup(error.message);
+      });
+    }
+
+    // clear all activities in the database
+    const activity = [];
+    await this.afs.collection('activity').ref.get()
+      .then((querySnapshot) => {
+        // select users
+        querySnapshot.forEach((doc) => {
+          const activityItem = {
+            firstName: doc.data().firstName,
+            lastName: doc.data().lastName,
+            uid: doc.data().uid,
+            activity: doc.data().activity,
+            description: doc.data().description,
+            link: doc.data().link,
+            points: doc.data().points,
+            id: doc.data().id,
+            cleared: doc.data().cleared,
+            recorded: doc.data().recorded
+          };
+          activity.push(activityItem);
+        });
+      })
+    .catch((error) => {
+      return this.errorPopup(error.message);
+    });
+    // loop through array and clear all activity items
+    for (const a of activity) {
+      a.cleared = true;
+      await this.afs.collection('activity').doc(a.id).set(a)
+      .catch((error) => {
+        this.errorPopup(error.message);
+        return;
       });
     }
 

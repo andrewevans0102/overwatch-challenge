@@ -1,3 +1,4 @@
+require('dotenv').config()
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 admin.initializeApp();
@@ -10,7 +11,7 @@ exports.createUser = functions.firestore
       const newValue = snap.data();
       const firstName = newValue.firstName;
       const lastName = newValue.lastName;
-      const slackWebhook = 'OC_slack1';  
+      const slackWebhook = process.env.CREATE_USER;  
       const message = "user " + firstName + " " + lastName + " just registered!"; 
       
       request.post(
@@ -26,7 +27,7 @@ exports.createUser = functions.firestore
 
 // when a new activity is created
 exports.createActivity = functions.firestore
-    .document('teamActivity/{Id}')
+    .document('activity/{Id}')
     .onCreate((snap, context) => {
       const newValue = snap.data();
       const firstName = newValue.firstName;
@@ -35,7 +36,7 @@ exports.createActivity = functions.firestore
       const description = newValue.description;
       const link = newValue.link;
       const points = newValue.points;
-      const slackWebhook = 'OC_slack2';  
+      const slackWebhook = process.env.CREATE_ACTIVITY;  
       const message = firstName + " " + lastName + " just added the activity " + activity
         + " for " + points + " points with the description \"" + description + ".\"  Here's a the link " + link + "."; 
 

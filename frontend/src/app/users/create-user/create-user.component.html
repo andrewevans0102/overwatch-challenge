@@ -1,24 +1,23 @@
-<form [formGroup]="createForm" (ngSubmit)="createUser()" class="create-container">
-  <h1>Create User</h1>
-  <mat-form-field>
-    <input matInput placeholder="Email" formControlName="email" id="inputEmail" required>
-    <mat-error *ngIf="createForm.controls['email'].invalid">{{getEmailErrorMessage()}}</mat-error>
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="Password" [type]="hidePassword ? 'password' : 'text'" formControlName="password" id="password" required>
-    <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="First Name" formControlName="firstName" id="firstName" required>
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="Last Name" formControlName="lastName" id="lastName" required>
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="Registration Code" formControlName="registrationCode" id="registrationCode" required>
-  </mat-form-field>
-  <div class="button-container">
-    <button mat-raised-button color="primary" type="submit" [disabled]="!createForm.valid" id="create-button">Create</button>
-    <button mat-raised-button color="warn" type="button" (click)="cancel()">Cancel</button>
-  </div>
-</form>
+<div class="form-container">
+  <form [formGroup]="createForm" (ngSubmit)="createUser()" class="create-container">
+    <h1>Create User</h1>
+    <mat-form-field>
+      <input matInput placeholder="Email" formControlName="email" id="inputEmail" required>
+      <mat-error *ngIf="createForm.controls['email'].invalid">{{getEmailErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Password" [type]="hidePassword ? 'password' : 'text'" formControlName="password" id="password" required>
+      <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="First Name" formControlName="firstName" id="firstName" required>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Last Name" formControlName="lastName" id="lastName" required>
+    </mat-form-field>
+    <div class="button-container">
+      <button mat-raised-button color="primary" type="submit" [disabled]="!createForm.valid" id="create-button">Create</button>
+      <button mat-raised-button color="warn" type="button" (click)="cancel()">Cancel</button>
+    </div>
+  </form>
+</div>

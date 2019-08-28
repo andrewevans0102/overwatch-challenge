@@ -13,44 +13,8 @@ jobs:
                 name: Show current directory
                 command: pwd
             - run:
-                name: environment variables
-                command: npm run environment-variables
-            - run:
-                name: environment file
-                command: curl -H "Authorization:token $GITHUB_TOKEN" -H "Accept:application/vnd.github.v3.raw" -O -L $OC_ENVIRONMENT
-            - run:
-                name: environment prod file
-                command: curl -H "Authorization:token $GITHUB_TOKEN" -H "Accept:application/vnd.github.v3.raw" -O -L $OC_ENVIRONMENT_PROD
-            - run:
-                name: cypress json file
-                command: curl -H "Authorization:token $GITHUB_TOKEN" -H "Accept:application/vnd.github.v3.raw" -O -L $OC_CYPRESS_JSON
-            - run:
-                name: delete old environment file
-                command: rm -rf frontend/src/environments/environment.ts
-            - run:
-                name: delete old enviornment file
-                command: rm -rf frontend/src/environments/environment.prod.ts
-            - run:
-                name: delete old enviornment file
-                command: rm -rf frontend/cypress.json
-            - run:
-                name: copy new files
-                command: cp environment.ts frontend/src/environments/environment.ts
-            - run:
-                name: copy new files
-                command: cp environment.prod.ts frontend/src/environments/environment.prod.ts
-            - run:
-                name: copy new files
-                command: cp cypress.json frontend/cypress.json      
-            - run:
-                name: delete original copied files
-                command: rm -rf environment.ts
-            - run:
-                name: delete original copied files
-                command: rm -rf environment.prod.ts
-            - run:
-                name: delete original copied files
-                command: rm -rf cypress.json      
+                name: deploy script
+                command: npm run setup-local
             - restore_cache:
                 keys:
                     - v1-dependencies-{{ checksum "package.json" }}
@@ -59,7 +23,7 @@ jobs:
                 command: npm run frontend-install
             - run:
                 name: Cypress Install
-                command: npm run frontend-cypress-install
+                command: npm run cypress-install
             - save_cache:
                 key: v1-dependencies-{{ checksum "package.json" }}
                 paths:
@@ -73,7 +37,7 @@ jobs:
                 command: npm run frontend-test
             - run:
                 name: e2e Testing
-                command: npm run frontend-cypress-run
+                command: npm run cypress-ci
             - run:
                 name: Building
                 command: npm run frontend-build

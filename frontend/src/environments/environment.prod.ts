@@ -6,6 +6,8 @@ export const environment = {
       databaseURL: '',
       projectId: '',
       storageBucket: '',
-      messagingSenderId: ''
+      messagingSenderId: '',
+      appId: ''
     }
   };
+  

@@ -49,12 +49,14 @@ export class AdminComponent implements OnInit {
 
   async saveUsers() {
     for (const user of this.users) {
-      console.log(user);
       await this.afs.collection('users').doc(user.uid).set(user)
       .catch((error) => {
-        return this.errorPopup(error.message);
+        this.errorPopup(error.message);
+        return;
       });
     }
+
+    this.infoPopup('save successful');
   }
 
   changeAdmin(user) {

@@ -3,11 +3,11 @@
   <div mat-dialog-content *ngIf="data.warn !== null" class="warn">
     {{ data.warn }}
   </div>
-  <div mat-dialog-content *ngIf="data.info !== null" class="info">
+  <div mat-dialog-content *ngIf="data.info !== null" class="info" id="info-message">
     {{ data.info }}
   </div>
   <div mat-dialog-actions>
-    <button mat-button (click)="closeClick()" id="closeButton">Close</button>
+    <button mat-button (click)="closeClick()" id="closeButton" class="close">Close</button>
   </div>
 </div>
 

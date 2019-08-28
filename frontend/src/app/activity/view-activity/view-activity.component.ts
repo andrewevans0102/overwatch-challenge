@@ -26,15 +26,42 @@ export class ViewActivityComponent implements OnInit {
   }
 
   selectActivity() {
-    this.teamActivity = this.afs.collection('teamActivity').valueChanges();
+    this.teamActivity = this.afs.collection('activity').valueChanges();
   }
 
-  // async is not necessary here, but using it to control event loop
   async deleteItem(activity: any) {
-    await this.afs.collection('teamActivity').doc(activity.id).delete()
+    await this.afs.collection('activity').doc(activity.id).delete()
       .catch((error) => {
-        return this.errorPopup(error.message);
+        this.errorPopup(error.message);
+        return;
       });
+
+    await this.afs.collection('users').ref.doc(this.afAuth.auth.currentUser.uid).get()
+      .then(async (dS) => {
+        const user = {
+          uid: dS.data().uid,
+          firstName: dS.data().firstName,
+          lastName: dS.data().lastName,
+          score: dS.data().score,
+          admin: dS.data().admin
+        };
+
+        user.score = user.score - parseInt(activity.points, 10);
+
+        await this.afs.collection('users').doc(user.uid).set(user)
+        .then((response) => {
+          this.infoPopup('activity was deleted successfully');
+          return;
+        })
+        .catch((error) => {
+          this.errorPopup(error.message);
+          return;
+        });
+    })
+    .catch((error) => {
+      this.errorPopup(error.message);
+      return;
+    });
 
     this.infoPopup('activity was deleted successfully');
   }

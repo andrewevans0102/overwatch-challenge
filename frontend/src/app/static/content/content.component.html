@@ -3,14 +3,14 @@
   <span class="toolbar-space"></span>
   <span>
     <button mat-icon-button [matMenuTriggerFor]="menu">
-      <mat-icon>menu</mat-icon>
+      <mat-icon id="content-menu">menu</mat-icon>
     </button>
     <mat-menu #menu="matMenu" [overlapTrigger]="false">
       <button mat-menu-item (click)="createActivity()">
         <mat-icon>assignment</mat-icon>
         <span>Create Activity</span>
       </button>
-      <button mat-menu-item (click)="viewActivity()">
+      <button mat-menu-item (click)="viewActivity()" id="view-activity">
         <mat-icon>camera_roll</mat-icon>
         <span>View Activity</span>
       </button>
@@ -43,7 +43,6 @@
   <img src="./assets/trophy.png" class="trophy">
   <div class="rules-display">
     <h1 *ngIf="firstName !== undefined" id="welcome-title">Welcome {{ firstName }}!</h1>
-    <p>Compete with your team to learn and share</p>
   </div>
   <img src="./assets/trophy.png" class="trophy">
 </div>

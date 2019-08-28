@@ -19,8 +19,7 @@ export class CreateUserComponent implements OnInit {
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl(''),
     firstName: new FormControl(''),
-    lastName: new FormControl(''),
-    registrationCode: new FormControl('')
+    lastName: new FormControl('')
   });
   popupModalData: PopupModalData;
 
@@ -40,11 +39,6 @@ export class CreateUserComponent implements OnInit {
   }
 
   async createUser() {
-    // verify registration code is valid before creating user
-    if (this.createForm.controls.registrationCode.value !== environment.registrationCode) {
-      return this.errorPopup('invalid registration code');
-    }
-
     // create user with authentication service
     // on success this will also sign in this user to the current session
     await this.afAuth.auth.createUserWithEmailAndPassword(this.createForm.controls.email.value,
