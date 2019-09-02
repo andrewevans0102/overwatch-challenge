@@ -4,6 +4,10 @@ import { Router } from '@angular/router';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { PopupService } from 'src/app/services/popup.service';
 import { PopupModalData } from 'src/app/models/popup-modal-data/popup-modal-data';
+import { LoadLogin } from './login.actions';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/reducers';
+import { LoadScores } from 'src/app/static/content/scores.actions';
 
 @Component({
   selector: 'app-login',
@@ -21,18 +25,22 @@ export class LoginComponent implements OnInit {
   constructor(
     public afAuth: AngularFireAuth,
     public router: Router,
-    public popupService: PopupService) { }
+    public popupService: PopupService,
+    private store: Store<AppState>) { }
 
   ngOnInit() {
   }
 
-  async login() {
-    await this.afAuth.auth.signInWithEmailAndPassword(this.loginForm.controls.email.value,
-      this.loginForm.controls.password.value)
-      .catch((error) => {
-        return this.errorPopup(error.message);
-      });
-
+  login() {
+    console.log(this.loginForm.controls.email.value);
+    console.log(this.loginForm.controls.password.value);
+    this.store.dispatch(new LoadLogin(
+      {
+        email: this.loginForm.controls.email.value,
+        password: this.loginForm.controls.password.value
+      }
+    ));
+    this.store.dispatch(new LoadScores());
     this.router.navigateByUrl('/content');
   }
 

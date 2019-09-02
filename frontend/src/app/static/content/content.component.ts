@@ -1,25 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-import { PopupModalData } from 'src/app/models/popup-modal-data/popup-modal-data';
 import { PopupService } from 'src/app/services/popup.service';
 import { Store, select } from '@ngrx/store';
-import { AppState } from 'src/app/reducers';
 import { LoadActivity } from 'src/app/activity/view-activity/view-activity.actions';
+import { AppState, selectLoginError, selectLogin, selectScoresError } from 'src/app/reducers';
+import { Subject, Observable } from 'rxjs';
+import { User } from 'src/app/models/user/user';
+import { takeUntil, catchError } from 'rxjs/operators';
+import { LoadScores } from './scores.actions';
 
 @Component({
   selector: 'app-content',
   templateUrl: './content.component.html',
   styleUrls: ['./content.component.scss']
 })
-export class ContentComponent implements OnInit {
+export class ContentComponent implements OnInit, OnDestroy {
 
-  activityDisplay = [];
-  firstName: string;
-  lastName: string;
   scores = [];
-  admin: boolean;
+  user$ = new Observable<User>();
+  loginError$ = new Observable<string>();
+  scoresError$ = new Observable<string>();
+  unsubscribe = new Subject();
 
   constructor(
     public afs: AngularFirestore,
@@ -29,27 +32,21 @@ export class ContentComponent implements OnInit {
     private store: Store<AppState>) { }
 
   ngOnInit() {
-    this.afAuth.auth.onAuthStateChanged(user => {
-      if (user) {
-        this.selectUser(user.uid);
-      } else {
-        this.router.navigateByUrl('/home');
-      }
-    });
+    this.user$ = this.store.pipe(select(selectLogin));
+    this.loginError$ = this.store.pipe(select(selectLoginError));
 
-    this.selectScores();
+    this.store.pipe(
+      takeUntil(this.unsubscribe),
+      catchError((error) => {
+        throw error;
+      }))
+      .subscribe(state => this.scores = state.scores.userScores);
+    this.scoresError$ = this.store.pipe(select(selectScoresError));
   }
 
-  async selectUser(uid: string) {
-    await this.afs.collection('users').ref.doc(uid).get()
-      .then((documentSnapshot) => {
-        this.firstName = documentSnapshot.data().firstName;
-        this.lastName = documentSnapshot.data().lastName;
-        this.admin = documentSnapshot.data().admin;
-      })
-      .catch((error) => {
-        return this.errorPopup(error.message);
-      });
+  ngOnDestroy(): void {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
   }
 
   createActivity() {
@@ -78,46 +75,6 @@ export class ContentComponent implements OnInit {
     } else {
       this.router.navigateByUrl('/home');
     }
-  }
-
-  async selectScores() {
-    this.scores = [];
-    await this.afs.collection('users').ref.get()
-      .then((querySnapshot) => {
-        // select users
-        querySnapshot.forEach((doc) => {
-          const userScore = {
-            place: 0,
-            firstName: doc.data().firstName,
-            lastName: doc.data().lastName,
-            score: doc.data().score
-          };
-          this.scores.push(userScore);
-        });
-
-        this.scores.sort(this.compare);
-        let place = 1;
-        let i = 0;
-        for (i = 0; i < this.scores.length; i++) {
-          this.scores[i].place = place;
-          place = place + 1;
-        }
-      })
-      .catch((error) => {
-        return this.errorPopup(error.message);
-      });
-  }
-
-  // wrote custom compare operator to sort score values
-  compare( a, b ) {
-    // sort descending
-    if ( a.score < b.score ) {
-      return 1;
-    }
-    if ( a.score > b.score ) {
-      return -1;
-    }
-    return 0;
   }
 
   async clearScores() {
@@ -196,8 +153,7 @@ export class ContentComponent implements OnInit {
       });
     }
 
-    // select users again for display
-    this.selectScores();
+    this.store.dispatch(new LoadScores());
   }
 
   errorPopup(message: string) {

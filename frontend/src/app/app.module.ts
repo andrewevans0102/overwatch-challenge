@@ -23,6 +23,8 @@ import { reducers, metaReducers } from './reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { ViewActivityEffects } from './activity/view-activity/view-activity.effects';
+import { LoginEffects } from './users/login/login.effects';
+import { ScoresEffects } from './static/content/scores.effects';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,7 @@ import { ViewActivityEffects } from './activity/view-activity/view-activity.effe
       }
     }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    EffectsModule.forRoot([ViewActivityEffects]),
+    EffectsModule.forRoot([ViewActivityEffects, LoginEffects, ScoresEffects]),
   ],
   entryComponents: [ PopupModalComponent ],
   providers: [ ],

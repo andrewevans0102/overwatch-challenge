@@ -4,13 +4,14 @@ import { LoadActivity, ActivityError, ViewActivityActionTypes, UpdateActivity } 
 import { of } from 'rxjs';
 import { map, mergeMap, catchError } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { Activity } from 'src/app/models/activity/activity';
 
 
 @Injectable()
 export class ViewActivityEffects {
 
   @Effect()
-  loadLogin$ = this.actions$
+  loadActivity$ = this.actions$
     .pipe(
       ofType<LoadActivity>(ViewActivityActionTypes.LoadActivity),
       mergeMap(async () => {
@@ -18,7 +19,7 @@ export class ViewActivityEffects {
           .then((querySnapshot) => {
             const selectedActivity = [];
             querySnapshot.forEach((doc) => {
-              const activity = {
+              const activity: Activity = {
                 firstName: doc.data().firstName,
                 lastName: doc.data().lastName,
                 uid: doc.data().uid,

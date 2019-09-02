@@ -1,17 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { PopupModalData } from 'src/app/models/popup-modal-data/popup-modal-data';
 import { PopupService } from 'src/app/services/popup.service';
+import { selectViewActivity, AppState, selectActivityError, selectLoginError } from 'src/app/reducers';
+import { Store, select } from '@ngrx/store';
+import { Subject, Observable } from 'rxjs';
+import { takeUntil, catchError } from 'rxjs/operators';
+import { User } from 'src/app/models/user/user';
+import { UpdateLogin } from 'src/app/users/login/login.actions';
 
 @Component({
   selector: 'app-create-activity',
   templateUrl: './create-activity.component.html',
   styleUrls: ['./create-activity.component.scss']
 })
-export class CreateActivityComponent implements OnInit {
+export class CreateActivityComponent implements OnInit, OnDestroy {
 
   selectedActivity: string;
   createForm = new FormGroup({
@@ -20,36 +26,31 @@ export class CreateActivityComponent implements OnInit {
     link: new FormControl(''),
     points: new FormControl('')
   });
-  firstName: string;
-  lastName: string;
-  score: number;
-  admin: boolean;
+  user = new User();
+  error$ = new Observable<string>();
+  unsubscribe = new Subject();
 
   constructor(
     public afs: AngularFirestore,
     public afAuth: AngularFireAuth,
     public router: Router,
-    public popupService: PopupService) { }
+    public popupService: PopupService,
+    private store: Store<AppState>) { }
 
   ngOnInit() {
-    this.afAuth.auth.onAuthStateChanged(user => {
-      if (user) {
-        this.selectUser(user.uid);
-      }
-    });
+    this.store.pipe(
+      takeUntil(this.unsubscribe),
+      catchError((error) => {
+        throw error;
+      }))
+      .subscribe(state => this.user = state.login.user);
+
+    this.error$ = this.store.pipe(select(selectLoginError));
   }
 
-  async selectUser(uid: string) {
-    await this.afs.collection('users').ref.doc(uid).get()
-      .then((documentSnapshot) => {
-        this.firstName = documentSnapshot.data().firstName;
-        this.lastName = documentSnapshot.data().lastName;
-        this.score = documentSnapshot.data().score;
-        this.admin = documentSnapshot.data().admin;
-      })
-      .catch((error) => {
-        return this.errorPopup(error.message);
-      });
+  ngOnDestroy(): void {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
   }
 
   async createActivity() {
@@ -85,10 +86,11 @@ export class CreateActivityComponent implements OnInit {
     }
 
     const idSaved = this.afs.createId();
+    console.log(this.user);
     const savedActivity = {
-      firstName: this.firstName,
-      lastName: this.lastName,
-      uid: this.afAuth.auth.currentUser.uid,
+      firstName: this.user.firstName,
+      lastName: this.user.lastName,
+      uid: this.user.uid,
       activity: this.createForm.controls.activity.value,
       description: this.createForm.controls.description.value,
       link: this.createForm.controls.link.value,
@@ -105,23 +107,21 @@ export class CreateActivityComponent implements OnInit {
       });
 
     // update the score in the users table
-    this.score = this.score + aPoints;
     const userUpdate = {
-      uid: this.afAuth.auth.currentUser.uid,
-      firstName: this.firstName,
-      lastName: this.lastName,
-      score: this.score,
-      admin: this.admin
+      admin: this.user.admin,
+      firstName: this.user.firstName,
+      lastName: this.user.lastName,
+      score: this.user.score + aPoints,
+      uid: this.user.uid
     };
-    await this.afs.collection('users').doc(this.afAuth.auth.currentUser.uid).set(userUpdate)
-      .then((success) => {
-        this.infoPopup('activity was created successfully');
-        this.router.navigateByUrl('/content');
-      })
+    await this.afs.collection('users').doc(this.user.uid).set(userUpdate)
       .catch((error) => {
         this.errorPopup(error.message);
         return;
       });
+    this.store.dispatch(new UpdateLogin({user: userUpdate}));
+    this.infoPopup('activity was created successfully');
+    this.router.navigateByUrl('/content');
   }
 
   cancel() {
