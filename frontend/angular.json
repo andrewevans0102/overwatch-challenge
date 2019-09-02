@@ -136,5 +136,8 @@
       }
     }
   },
-  "defaultProject": "overwatch-challenge"
+  "defaultProject": "overwatch-challenge",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }

@@ -5,6 +5,10 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { PopupService } from 'src/app/services/popup.service';
 import { PopupModalData } from 'src/app/models/popup-modal-data/popup-modal-data';
+import { selectViewActivity, AppState, selectActivityError } from 'src/app/reducers';
+import { Store, select } from '@ngrx/store';
+import { User } from 'src/app/models/user/user';
+import { LoadActivity } from './view-activity.actions';
 
 @Component({
   selector: 'app-view-activity',
@@ -13,20 +17,19 @@ import { PopupModalData } from 'src/app/models/popup-modal-data/popup-modal-data
 })
 export class ViewActivityComponent implements OnInit {
 
-  teamActivity: Observable<any[]>;
+  activity$: Observable<any[]>;
+  error$: Observable<string>;
 
   constructor(
     public afs: AngularFirestore,
     public afAuth: AngularFireAuth,
     public router: Router,
-    public popupService: PopupService) { }
+    public popupService: PopupService,
+    private store: Store<AppState>) { }
 
   ngOnInit() {
-    this.selectActivity();
-  }
-
-  selectActivity() {
-    this.teamActivity = this.afs.collection('activity').valueChanges();
+    this.activity$ = this.store.pipe(select(selectViewActivity));
+    this.error$ = this.store.pipe(select(selectActivityError));
   }
 
   async deleteItem(activity: any) {
@@ -36,9 +39,10 @@ export class ViewActivityComponent implements OnInit {
         return;
       });
 
+    let user = new User();
     await this.afs.collection('users').ref.doc(this.afAuth.auth.currentUser.uid).get()
       .then(async (dS) => {
-        const user = {
+        user = {
           uid: dS.data().uid,
           firstName: dS.data().firstName,
           lastName: dS.data().lastName,
@@ -47,18 +51,19 @@ export class ViewActivityComponent implements OnInit {
         };
 
         user.score = user.score - parseInt(activity.points, 10);
-
-        await this.afs.collection('users').doc(user.uid).set(user)
-          .catch((error) => {
-            this.errorPopup(error.message);
-            return;
-          });
     })
     .catch((error) => {
       this.errorPopup(error.message);
       return;
     });
 
+    await this.afs.collection('users').doc(user.uid).set(user)
+    .catch((error) => {
+      this.errorPopup(error.message);
+      return;
+    });
+
+    this.store.dispatch(new LoadActivity());
     this.infoPopup('activity was deleted successfully');
   }
 

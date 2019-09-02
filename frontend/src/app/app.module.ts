@@ -18,6 +18,11 @@ import { ViewActivityComponent } from './activity/view-activity/view-activity.co
 import { HighScoresComponent } from './static/high-scores/high-scores.component';
 import { AdminComponent } from './users/admin/admin.component';
 import { PopupModalComponent } from './static/popup-modal/popup-modal.component';
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './reducers';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
+import { ViewActivityEffects } from './activity/view-activity/view-activity.effects';
 
 @NgModule({
   declarations: [
@@ -42,6 +47,15 @@ import { PopupModalComponent } from './static/popup-modal/popup-modal.component'
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    StoreModule.forRoot(reducers, {
+      metaReducers,
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true,
+      }
+    }),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    EffectsModule.forRoot([ViewActivityEffects]),
   ],
   entryComponents: [ PopupModalComponent ],
   providers: [ ],

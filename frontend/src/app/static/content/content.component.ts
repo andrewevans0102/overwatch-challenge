@@ -4,6 +4,9 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { PopupModalData } from 'src/app/models/popup-modal-data/popup-modal-data';
 import { PopupService } from 'src/app/services/popup.service';
+import { Store, select } from '@ngrx/store';
+import { AppState } from 'src/app/reducers';
+import { LoadActivity } from 'src/app/activity/view-activity/view-activity.actions';
 
 @Component({
   selector: 'app-content',
@@ -22,7 +25,8 @@ export class ContentComponent implements OnInit {
     public afs: AngularFirestore,
     public afAuth: AngularFireAuth,
     public router: Router,
-    public popupService: PopupService) { }
+    public popupService: PopupService,
+    private store: Store<AppState>) { }
 
   ngOnInit() {
     this.afAuth.auth.onAuthStateChanged(user => {
@@ -53,6 +57,7 @@ export class ContentComponent implements OnInit {
   }
 
   viewActivity() {
+    this.store.dispatch(new LoadActivity());
     this.router.navigateByUrl('/view-activity');
   }
 
