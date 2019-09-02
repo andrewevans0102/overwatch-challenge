@@ -3,12 +3,13 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { PopupService } from 'src/app/services/popup.service';
+import { PopupService } from 'src/app/services/popup/popup.service';
 import { PopupModalData } from 'src/app/models/popup-modal-data/popup-modal-data';
 import { selectViewActivity, AppState, selectActivityError } from 'src/app/reducers';
 import { Store, select } from '@ngrx/store';
 import { User } from 'src/app/models/user/user';
 import { LoadActivity } from './view-activity.actions';
+import { DatabaseService } from 'src/app/services/database/database.service';
 
 @Component({
   selector: 'app-view-activity',
@@ -21,11 +22,11 @@ export class ViewActivityComponent implements OnInit {
   error$: Observable<string>;
 
   constructor(
-    public afs: AngularFirestore,
     public afAuth: AngularFireAuth,
     public router: Router,
     public popupService: PopupService,
-    private store: Store<AppState>) { }
+    private store: Store<AppState>,
+    public databaseService: DatabaseService) { }
 
   ngOnInit() {
     this.activity$ = this.store.pipe(select(selectViewActivity));
@@ -33,35 +34,12 @@ export class ViewActivityComponent implements OnInit {
   }
 
   async deleteItem(activity: any) {
-    await this.afs.collection('activity').doc(activity.id).delete()
-      .catch((error) => {
-        this.errorPopup(error.message);
-        return;
-      });
-
-    let user = new User();
-    await this.afs.collection('users').ref.doc(this.afAuth.auth.currentUser.uid).get()
-      .then(async (dS) => {
-        user = {
-          uid: dS.data().uid,
-          firstName: dS.data().firstName,
-          lastName: dS.data().lastName,
-          score: dS.data().score,
-          admin: dS.data().admin
-        };
-
-        user.score = user.score - parseInt(activity.points, 10);
-    })
-    .catch((error) => {
+    try {
+      await this.databaseService.deleteActivity(activity, this.afAuth.auth.currentUser.uid);
+    } catch (error) {
       this.errorPopup(error.message);
       return;
-    });
-
-    await this.afs.collection('users').doc(user.uid).set(user)
-    .catch((error) => {
-      this.errorPopup(error.message);
-      return;
-    });
+    }
 
     this.store.dispatch(new LoadActivity());
     this.infoPopup('activity was deleted successfully');

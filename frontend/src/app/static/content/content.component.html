@@ -18,14 +18,16 @@
         <mat-icon>score</mat-icon>
         <span>View High Scores</span>
       </button>
-      <button *ngIf="admin" mat-menu-item (click)="clearScores()">
-        <mat-icon>check_box</mat-icon>
-        <span>clear scores</span>
-      </button>
-      <button *ngIf="admin" mat-menu-item (click)="viewAdmin()">
-        <mat-icon>build</mat-icon>
-        <span>View Admin</span>
-      </button>
+      <div *ngIf="user !== undefined">
+        <button *ngIf="user.admin === true" mat-menu-item (click)="clearScores()">
+          <mat-icon>check_box</mat-icon>
+          <span>clear scores</span>
+        </button>
+        <button *ngIf="user.admin === true" mat-menu-item (click)="viewAdmin()">
+          <mat-icon>build</mat-icon>
+          <span>View Admin</span>
+        </button>
+      </div>
       <button mat-menu-item>
         <a href="https://andrewevans0102.github.io/overwatch-challenge/" class="view-guide">
           <mat-icon>assignment</mat-icon>
@@ -42,7 +44,7 @@
 <div class="top-page">
   <img src="./assets/trophy.png" class="trophy">
   <div class="rules-display">
-    <h1 *ngIf="firstName !== undefined" id="welcome-title">Welcome {{ firstName }}!</h1>
+    <h1 *ngIf="user !== undefined" id="welcome-title">Welcome {{ user.firstName }}!</h1>
   </div>
   <img src="./assets/trophy.png" class="trophy">
 </div>
@@ -64,21 +66,3 @@
     </tr>
   </tbody>
 </table>
-
-
-
-<!-- <div *ngFor="let a of activityDisplay" class="content-parent">
-    <div class="content-child">
-      <div class="person">
-        <p>{{ a.name }}</p>
-      </div>
-      <div class="activities">
-        <mat-list *ngFor="let b of a.completedActivity | async">
-          <mat-list-item role="listitem">
-            <a href="{{ b.link }}">{{ b.activity }}</a>
-            <button type="button" class="btn btn-danger round-button delete-button" (click)="deleteItem(b)">X</button>
-          </mat-list-item>
-        </mat-list>
-      </div>
-    </div>
-</div> -->

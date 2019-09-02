@@ -4,7 +4,10 @@ import { Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { PopupModalData } from 'src/app/models/popup-modal-data/popup-modal-data';
-import { PopupService } from 'src/app/services/popup.service';
+import { PopupService } from 'src/app/services/popup/popup.service';
+import { DatabaseService } from 'src/app/services/database/database.service';
+import { User } from 'src/app/models/user/user';
+import { Activity } from 'src/app/models/activity/activity';
 
 @Component({
   selector: 'app-create-activity',
@@ -20,16 +23,13 @@ export class CreateActivityComponent implements OnInit {
     link: new FormControl(''),
     points: new FormControl('')
   });
-  firstName: string;
-  lastName: string;
-  score: number;
-  admin: boolean;
+  user: User;
 
   constructor(
-    public afs: AngularFirestore,
     public afAuth: AngularFireAuth,
     public router: Router,
-    public popupService: PopupService) { }
+    public popupService: PopupService,
+    public databaseService: DatabaseService) { }
 
   ngOnInit() {
     this.afAuth.auth.onAuthStateChanged(user => {
@@ -40,16 +40,12 @@ export class CreateActivityComponent implements OnInit {
   }
 
   async selectUser(uid: string) {
-    await this.afs.collection('users').ref.doc(uid).get()
-      .then((documentSnapshot) => {
-        this.firstName = documentSnapshot.data().firstName;
-        this.lastName = documentSnapshot.data().lastName;
-        this.score = documentSnapshot.data().score;
-        this.admin = documentSnapshot.data().admin;
-      })
-      .catch((error) => {
-        return this.errorPopup(error.message);
-      });
+    try {
+      this.user = await this.databaseService.selectUser(uid);
+    } catch (error) {
+      this.errorPopup(error.message);
+      return;
+    }
   }
 
   async createActivity() {
@@ -84,44 +80,26 @@ export class CreateActivityComponent implements OnInit {
         aPoints = 0;
     }
 
-    const idSaved = this.afs.createId();
-    const savedActivity = {
-      firstName: this.firstName,
-      lastName: this.lastName,
+    const activity: Activity = {
+      firstName: this.user.firstName,
+      lastName: this.user.lastName,
       uid: this.afAuth.auth.currentUser.uid,
       activity: this.createForm.controls.activity.value,
       description: this.createForm.controls.description.value,
       link: this.createForm.controls.link.value,
       points: aPoints,
-      id: idSaved,
+      id: '',
       cleared: false,
       recorded: Date.now()
     };
 
-    // save to the activity table for display
-    await this.afs.collection('activity').doc(idSaved).set(savedActivity)
-      .catch((error) => {
-        return this.errorPopup(error.message);
-      });
-
-    // update the score in the users table
-    this.score = this.score + aPoints;
-    const userUpdate = {
-      uid: this.afAuth.auth.currentUser.uid,
-      firstName: this.firstName,
-      lastName: this.lastName,
-      score: this.score,
-      admin: this.admin
-    };
-    await this.afs.collection('users').doc(this.afAuth.auth.currentUser.uid).set(userUpdate)
-      .then((success) => {
-        this.infoPopup('activity was created successfully');
-        this.router.navigateByUrl('/content');
-      })
-      .catch((error) => {
-        this.errorPopup(error.message);
-        return;
-      });
+    try {
+      await this.databaseService.saveActivity(activity, aPoints, this.user);
+      this.infoPopup('Activity was saved successfully!');
+      this.router.navigateByUrl('/content');
+    } catch (error) {
+      throw error;
+    }
   }
 
   cancel() {

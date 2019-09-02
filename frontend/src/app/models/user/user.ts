@@ -3,5 +3,5 @@ export class User {
   firstName: string | null;
   lastName: string | null;
   score: number | null;
-  admin: string | null;
+  admin: boolean | null;
 }

@@ -2,7 +2,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
-import { PopupService } from 'src/app/services/popup.service';
+import { PopupService } from 'src/app/services/popup/popup.service';
 import { PopupModalData } from 'src/app/models/popup-modal-data/popup-modal-data';
 
 @Component({

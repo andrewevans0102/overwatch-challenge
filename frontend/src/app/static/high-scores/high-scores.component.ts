@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { DatabaseService } from 'src/app/services/database/database.service';
 
 @Component({
   selector: 'app-high-scores',
@@ -11,16 +10,16 @@ import { Observable } from 'rxjs';
 })
 export class HighScoresComponent implements OnInit {
 
-  highScores: Observable<any[]>;
+  highScores = [];
 
-  constructor(public afs: AngularFirestore, public afAuth: AngularFireAuth, public router: Router) { }
+  constructor(public afAuth: AngularFireAuth, public router: Router, public databaseService: DatabaseService) { }
 
   ngOnInit() {
     this.selectScores();
   }
 
-  selectScores() {
-    this.highScores = this.afs.collection('highScores').valueChanges();
+  async selectScores() {
+    this.highScores = await this.databaseService.selectHighScores();
   }
 
   goBack() {

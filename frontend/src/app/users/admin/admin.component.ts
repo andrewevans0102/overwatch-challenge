@@ -3,7 +3,8 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 import { PopupModalData } from 'src/app/models/popup-modal-data/popup-modal-data';
-import { PopupService } from 'src/app/services/popup.service';
+import { PopupService } from 'src/app/services/popup/popup.service';
+import { DatabaseService } from 'src/app/services/database/database.service';
 
 @Component({
   selector: 'app-admin',
@@ -18,42 +19,29 @@ export class AdminComponent implements OnInit {
   });
 
   constructor(
-    public afs: AngularFirestore,
     public router: Router,
-    public popupService: PopupService) { }
+    public popupService: PopupService,
+    public databaseService: DatabaseService) { }
 
   ngOnInit() {
     this.selectUsers();
   }
 
   async selectUsers() {
-    this.users = [];
-    await this.afs.collection('users').ref.get()
-      .then((querySnapshot) => {
-        // select users
-        querySnapshot.forEach((doc) => {
-          const user = {
-            firstName: doc.data().firstName,
-            lastName: doc.data().lastName,
-            score: doc.data().score,
-            admin: doc.data().admin,
-            uid: doc.data().uid
-          };
-          this.users.push(user);
-        });
-      })
-      .catch((error) => {
-        return this.errorPopup(error.message);
-      });
+    try {
+      this.users = await this.databaseService.selectUsers();
+    } catch (error) {
+      this.errorPopup(error.message);
+      return;
+    }
   }
 
   async saveUsers() {
-    for (const user of this.users) {
-      await this.afs.collection('users').doc(user.uid).set(user)
-      .catch((error) => {
-        this.errorPopup(error.message);
-        return;
-      });
+    try {
+      await this.databaseService.saveUsers(this.users);
+    } catch (error) {
+      this.errorPopup(error.message);
+      return;
     }
 
     this.infoPopup('save successful');

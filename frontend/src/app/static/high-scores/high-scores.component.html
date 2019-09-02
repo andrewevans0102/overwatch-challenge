@@ -3,7 +3,7 @@
   <button mat-raised-button color="warn" type="button" (click)="goBack()">Go Back</button>
 </div>
 <table class="table table-dark">
-  <tr *ngFor="let hs of highScores | async">
+  <tr *ngFor="let hs of highScores">
     <td>
       <p>Saved {{ hs.scoreTitle }}</p>
       <div class="high-score">

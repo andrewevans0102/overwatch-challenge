@@ -8,5 +8,5 @@ export class Activity {
   points: number | null;
   id: string | null;
   cleared: boolean | null;
-  recorded: Date | null;
+  recorded: number | null;
 }

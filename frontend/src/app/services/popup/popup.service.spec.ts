@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { PopupService } from './popup.service';
 import { MatDialog } from '@angular/material';
-import { MaterialModule } from '../material/material.module';
+import { MaterialModule } from '../../material/material.module';
 
 describe('PopupService', () => {
 
