@@ -5,12 +5,13 @@
 <table class="table table-dark">
   <thead>
     <tr>
-      <th scope="col">Name</th>
+      <th scope="col"><p>Name</p></th>
+      <th scope="col"><p>Date</p></th>
       <!-- <th scope="col">Last Name</th> -->
       <!-- <th scope="col">Activity</th> -->
-      <th scope="col">Description</th>
+      <th scope="col"><p>Description</p></th>
       <!-- <th scope="col">Points</th> -->
-      <th scope="col">Delete</th>
+      <th scope="col"><p>Delete</p></th>
     </tr>
   </thead>
   <tbody>
@@ -25,11 +26,19 @@
           </span>
         </div>
       </td>
+      <td>{{ activity.recorded | date:'shortDate' }}</td>
       <!-- <td>{{ activity.lastName }}</td> -->
       <!-- <td>{{ activity.activity }}</td> -->
-      <td><a href="{{ activity.link }}">{{ activity.description }}</a></td>
+      <td>
+        <div class="description">
+          <span class="activity-name">
+            {{ activity.activity }}
+          </span>
+          <a href="{{ activity.link }}">{{ activity.description }}</a>
+        </div>
+      </td>
       <!-- <td>{{ activity.points }}</td> -->
-      <td><button type="button" class="btn btn-danger round-button" (click)="deleteItem(activity)" *ngIf="activity.uid === this.afAuth.auth.currentUser.uid">X</button></td>
+      <td><button type="button" class="btn btn-danger round-button" (click)="deleteItem(activity)" *ngIf="activity.uid === this.afAuth.auth.currentUser.uid && activity.cleared === false">X</button></td>
     </tr>
   </tbody>
 </table>

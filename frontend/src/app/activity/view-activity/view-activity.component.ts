@@ -49,14 +49,10 @@ export class ViewActivityComponent implements OnInit {
         user.score = user.score - parseInt(activity.points, 10);
 
         await this.afs.collection('users').doc(user.uid).set(user)
-        .then((response) => {
-          this.infoPopup('activity was deleted successfully');
-          return;
-        })
-        .catch((error) => {
-          this.errorPopup(error.message);
-          return;
-        });
+          .catch((error) => {
+            this.errorPopup(error.message);
+            return;
+          });
     })
     .catch((error) => {
       this.errorPopup(error.message);
