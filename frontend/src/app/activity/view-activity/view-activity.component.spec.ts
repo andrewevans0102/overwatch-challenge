@@ -6,10 +6,25 @@ import { BehaviorSubject, of } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MaterialModule } from '../../material/material.module';
+import { provideMockStore, MockStore } from '@ngrx/store/testing';
+import { Activity } from 'src/app/models/activity/activity';
+import { Store } from '@ngrx/store';
 
 describe('ViewActivityComponent', () => {
   let component: ViewActivityComponent;
   let fixture: ComponentFixture<ViewActivityComponent>;
+  let store: MockStore<{
+    viewActivity: {
+      activity: Activity[],
+      error: null
+    }
+   }>;
+  const initialState = {
+    viewActivity: {
+      activity: [],
+      error: null
+    }
+  };
 
   // stub for instance of the AngularFirestore class
   const firestoreStub = {
@@ -41,10 +56,13 @@ describe('ViewActivityComponent', () => {
       ],
       providers: [
         { provide: AngularFirestore, useValue: firestoreStub },
-        { provide: AngularFireAuth, useValue: fireAuthStub }
+        { provide: AngularFireAuth, useValue: fireAuthStub },
+        provideMockStore({ initialState }),
       ]
     })
     .compileComponents();
+
+    store = TestBed.get(Store);
   }));
 
   beforeEach(() => {

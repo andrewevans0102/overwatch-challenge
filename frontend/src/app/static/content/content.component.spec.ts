@@ -5,10 +5,25 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { BehaviorSubject, of } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { RouterTestingModule } from '@angular/router/testing';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
+import { Activity } from 'src/app/models/activity/activity';
+import { Store } from '@ngrx/store';
 
 describe('ContentComponent', () => {
   let component: ContentComponent;
   let fixture: ComponentFixture<ContentComponent>;
+  let store: MockStore<{
+    viewActivity: {
+      activity: Activity[],
+      error: null
+    }
+   }>;
+  const initialState = {
+    viewActivity: {
+      activity: [],
+      error: null
+    }
+  };
 
   // stub response from AngularFiresoreModule GET call
   const querySnapshot = {
@@ -48,10 +63,13 @@ describe('ContentComponent', () => {
       ],
       providers: [
         { provide: AngularFirestore, useValue: firestoreStub },
-        { provide: AngularFireAuth, useValue: fireAuthStub }
+        { provide: AngularFireAuth, useValue: fireAuthStub },
+        provideMockStore({ initialState }),
       ]
     })
     .compileComponents();
+
+    store = TestBed.get(Store);
   }));
 
   beforeEach(() => {
