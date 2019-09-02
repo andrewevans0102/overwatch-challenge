@@ -20,7 +20,7 @@ const initialActivityState: ViewActivityState = {
 };
 
 export interface AppState {
-  viewActivity: ViewActivityState
+  viewActivity: ViewActivityState;
 }
 
 export function viewActivityReducer(state: ViewActivityState = initialActivityState, action: ViewActivityAction): ViewActivityState {

@@ -10,7 +10,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 export class ViewActivityEffects {
 
   @Effect()
-  loadLogin$ = this.actions$
+  loadActivity$ = this.actions$
     .pipe(
       ofType<LoadActivity>(ViewActivityActionTypes.LoadActivity),
       mergeMap(async () => {
@@ -32,7 +32,7 @@ export class ViewActivityEffects {
               };
               selectedActivity.push(activity);
             });
-            selectedActivity.sort((a,b) => {
+            selectedActivity.sort((a, b) => {
               return b.recorded - a.recorded;
             });
             return selectedActivity;
