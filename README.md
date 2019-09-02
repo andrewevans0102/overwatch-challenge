@@ -57,6 +57,7 @@ The frontend project is organized based on __feature__ in the following folders:
 2. `/src/app/static` all static pages that show users or activity in the application
 3. `/src/app/users` all components that are used to work with user accounts in the application
 4. `/src/app/models` any models used in the application
+5. `src/app/services` any services used in the application
 
 ## Running Locally
 - ```npm run frontend-serve``` runs the frontend angular application locally
@@ -66,6 +67,9 @@ The frontend project is organized based on __feature__ in the following folders:
 - ```npm run functions-deploy``` deploys the firebase cloud functions
 - ```npm run cypress-local``` runs the cypress tests locally with a test runner
 - ```npm run cupress-ci``` runs the cypress tests headless for CI deployments
+
+## NgRx Usage
+Currently the application uses NgRx for the `view-activity` and `create-activity` pages.  One of the items for improvement is to move some of the database calls into their own actions and improving the appliations state management.
 
 # Cypress Testing
 - The frontend application uses Cypress for e2e testing
@@ -93,7 +97,7 @@ The frontend project is organized based on __feature__ in the following folders:
 
 ## Future Improvements
 Future improvements on the horizon (PR's Welcome!):
-1. Refactor service calls to be in specific classes around their function
-2. Build out more tests for code coverage (potentially may be using Cypress for this in the future)
+1. Build out more tests for code coverage (potentially may be using Cypress for this in the future)
+2. Increase use of NgRx for state management (currently only used in `view-activity` and `create-activity` components)
 3. make application more responsive
 4. Add more details to the instructions (docs) site

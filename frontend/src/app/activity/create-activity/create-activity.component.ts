@@ -94,8 +94,8 @@ export class CreateActivityComponent implements OnInit {
     };
 
     try {
-      await this.databaseService.saveActivity(activity, aPoints, this.user);
-      this.infoPopup('Activity was saved successfully!');
+      await this.databaseService.saveActivity(activity, this.user);
+      this.infoPopup('activity was created successfully!');
       this.router.navigateByUrl('/content');
     } catch (error) {
       throw error;

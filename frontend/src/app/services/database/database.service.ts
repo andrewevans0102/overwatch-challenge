@@ -11,6 +11,10 @@ export class DatabaseService {
 
   constructor(public afs: AngularFirestore) { }
 
+  /**
+   * creates user in firestore database
+   * @param user, user to be created
+   */
   async addUser(user: User) {
     await this.afs.collection('users').doc(user.uid).set(user)
       .catch((error) => {
@@ -18,6 +22,10 @@ export class DatabaseService {
       });
   }
 
+  /**
+   * retrieves user from firestore database
+   * @param uid, uid of user to be retrieved, the auth module uses the uid field as a key for identity management
+   */
   async selectUser(uid: string) {
     return await this.afs.collection('users').ref.doc(uid).get()
       .then((documentSnapshot) => {
@@ -34,6 +42,9 @@ export class DatabaseService {
       });
   }
 
+  /**
+   * retrieves all users from the firestore database
+   */
   async selectUsers() {
     return await this.afs.collection('users').ref.get()
       .then((querySnapshot) => {
@@ -56,6 +67,10 @@ export class DatabaseService {
       });
   }
 
+  /**
+   * saves an array of users to the firestore dataabse
+   * @param users, array of user objects to be saved
+   */
   async saveUsers(users: User[]) {
     for (const user of users) {
       await this.afs.collection('users').doc(user.uid).set(user)
@@ -65,6 +80,12 @@ export class DatabaseService {
     }
   }
 
+  /**
+   * Deletes an activity from the firestore database
+   * Also lowers the score of the user that made the deletion
+   * @param activity, activity to be saved
+   * @param uid, uid of user that made the delete
+   */
   async deleteActivity(activity: Activity, uid: string) {
     await this.afs.collection('activity').doc(activity.id).delete()
       .catch((error) => {
@@ -94,7 +115,13 @@ export class DatabaseService {
       });
   }
 
-  async saveActivity(activity: Activity, aPoints: number, user: User) {
+  /**
+   * Saves activity to firestore database
+   * Also increases score and updates users database for individual that is saving the activity
+   * @param activity, activity to be saved
+   * @param user, user that is saving the activity and whose score will be increased
+   */
+  async saveActivity(activity: Activity, user: User) {
     // save to the activity table for display
     activity.id = this.afs.createId();
     await this.afs.collection('activity').doc(activity.id).set(activity)
@@ -107,7 +134,7 @@ export class DatabaseService {
       uid: user.uid,
       firstName: user.firstName,
       lastName: user.lastName,
-      score: user.score + aPoints,
+      score: user.score + activity.points,
       admin: user.admin
     };
     await this.afs.collection('users').doc(user.uid).set(savedUser)
@@ -116,6 +143,9 @@ export class DatabaseService {
       });
   }
 
+  /**
+   * Retrieves all activity values from the firestore database
+   */
   async selectAllActivity() {
     return await this.afs.collection('activity').ref.get()
       .then((querySnapshot) => {
@@ -145,6 +175,10 @@ export class DatabaseService {
       });
   }
 
+  /**
+   * Selects all users from the firestore datbase with score values formatted and an additional place field
+   * The place field is used by the content page to determine the dispaly order
+   */
   async selectScores() {
     return await this.afs.collection('users').ref.get()
       .then((querySnapshot) => {
@@ -183,6 +217,12 @@ export class DatabaseService {
       });
   }
 
+  /**
+   * Saves the high scores to the firestore database
+   * Clears the scores of all users
+   * Clears all activities so they cannot be deleted after the save is complete
+   * @param scores, scores that are to be cleared
+   */
   async clearScores(scores: User[]) {
     // save off top three scores
     const d = new Date();
@@ -248,6 +288,9 @@ export class DatabaseService {
     }
   }
 
+  /**
+   * Retrieves all the high scores from the firestore database
+   */
   async selectHighScores() {
     return await this.afs.collection('highScores').ref.get()
       .then((querySnapshot) => {
