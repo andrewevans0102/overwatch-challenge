@@ -33,6 +33,7 @@
     "@ngrx/schematics": "^8.3.0",
     "@ngrx/store": "^8.3.0",
     "@ngrx/store-devtools": "^8.3.0",
+    "axios": "^0.19.0",
     "bootstrap": "^4.3.1",
     "core-js": "^2.5.4",
     "dotenv": "^8.1.0",

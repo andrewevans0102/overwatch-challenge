@@ -4,4 +4,5 @@ export class User {
   lastName: string | null;
   score: number | null;
   admin: boolean | null;
+  email: string | null;
 }
