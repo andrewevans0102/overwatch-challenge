@@ -24,12 +24,12 @@ The project includes a `slack integration` for team members. Once you get regist
 
 The application uses Firebase Cloud Functions to emit slack notifications (1) when users are registered and (2) when activities are created
 
-# Slack
+## Slack
 
 - please join the project's [slack channel](https://join.slack.com/t/overwatch-challenge/shared_invite/enQtNzQxMzAwODEzMDA4LTU0OWIzNDRmZDUwMmMzMTY0NDUyYjhkMDcxYTgzZTFmNzlmOGQ3ODA0ODAzYTBjNzQ1ODU5NmJkNDFiOWQ3ODQ)
 - you can also [login here](https://overwatch-challenge.slack.com)
 
-# HOW TO RUN FRONTEND LOCALLY
+## HOW TO RUN FRONTEND LOCALLY
 
 - create a firebase app (for free) with the [console here](https://console.firebase.google.com/)
 - register your app following the [instructions here](https://firebase.google.com/docs/web/setup)
@@ -39,7 +39,7 @@ The application uses Firebase Cloud Functions to emit slack notifications (1) wh
 - from the project root run `npm run frontend-serve` and you should be good to go!
 - if you have further questions, please review the [AngularFire2 docs](https://github.com/angular/angularfire2/blob/master/docs/install-and-setup.md)
 
-# HOW TO RUN FIREBASE FUNCTIONS LOCALLY
+## HOW TO RUN FIREBASE FUNCTIONS LOCALLY
 
 - create a firebase app (for free) with the [console here](https://console.firebase.google.com/)
 - make sure to install the [firebase CLI](https://firebase.google.com/docs/cli)
@@ -86,7 +86,7 @@ Currently the application uses NgRx for the `view-activity` and `create-activity
 
 The application includes a Firebase Cloud Function that sends emails using [Nodemailer](https://nodemailer.com/about/). This automates sending an email to everyone with the week's high scores.
 
-# Cypress Testing
+## Cypress Testing
 
 - The frontend application uses Cypress for e2e testing
 - To run tests from the project root run `npm run frontend-cypress-test`
@@ -97,7 +97,7 @@ The application includes a Firebase Cloud Function that sends emails using [Node
 - Cypress environment variables are loaded in from the `cypress.json` file
 - Please checkout my blog post on [Cypress Testing](https://blog.angularindepth.com/how-cypress-makes-testing-fun-a56da1294285)
 
-# User Guide
+## User Guide
 
 - User guide code is in the `docs` folder
 - User guide is built with [MkDocs](https://www.mkdocs.org/)
