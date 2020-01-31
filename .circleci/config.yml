@@ -21,9 +21,9 @@ jobs:
       - run:
           name: Install dependencies
           command: npm run frontend-install
-      - run:
-          name: Cypress Install
-          command: npm run cypress-install
+      # - run:
+      #     name: Cypress Install
+      #     command: npm run cypress-install
       - save_cache:
           key: v1-dependencies-{{ checksum "package.json" }}
           paths:
@@ -35,9 +35,9 @@ jobs:
       - run:
           name: Testing
           command: npm run frontend-test
-      - run:
-          name: e2e Testing
-          command: npm run cypress-ci
+      # - run:
+      #     name: e2e Testing
+      #     command: npm run cypress-ci
       - run:
           name: Building
           command: npm run frontend-build
