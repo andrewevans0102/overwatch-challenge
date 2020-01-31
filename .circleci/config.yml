@@ -1,83 +1,83 @@
 version: 2
 jobs:
-    build:
-        working_directory: ~/project
-        docker:
-            - image: circleci/node:8.9.3-browsers
-        steps:
-            - checkout
-            - run:
-                name: Show current branch
-                command: echo ${CIRCLE_BRANCH}
-            - run:
-                name: Show current directory
-                command: pwd
-            - run:
-                name: deploy script
-                command: npm run setup-local
-            - restore_cache:
-                keys:
-                    - v1-dependencies-{{ checksum "package.json" }}
-            - run:
-                name: Install dependencies
-                command: npm run frontend-install
-            - run:
-                name: Cypress Install
-                command: npm run cypress-install
-            - save_cache:
-                key: v1-dependencies-{{ checksum "package.json" }}
-                paths:
-                    - frontend/node_modules
-                    - /home/circleci/.cache/Cypress
-            - run:
-                name: Linting
-                command: npm run frontend-lint
-            - run:
-                name: Testing
-                command: npm run frontend-test
-            - run:
-                name: e2e Testing
-                command: npm run cypress-ci
-            - run:
-                name: Building
-                command: npm run frontend-build
-            - save_cache:
-                key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
-                paths:
-                    - frontend
-                    - functions
-                    - package.json
-                    - .firebaserc
-                    - firebase.json
+  build:
+    working_directory: ~/project
+    docker:
+      - image: circleci/node:10.10.0-jessie-browsers
+    steps:
+      - checkout
+      - run:
+          name: Show current branch
+          command: echo ${CIRCLE_BRANCH}
+      - run:
+          name: Show current directory
+          command: pwd
+      - run:
+          name: deploy script
+          command: npm run setup-local
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+      - run:
+          name: Install dependencies
+          command: npm run frontend-install
+      - run:
+          name: Cypress Install
+          command: npm run cypress-install
+      - save_cache:
+          key: v1-dependencies-{{ checksum "package.json" }}
+          paths:
+            - frontend/node_modules
+            - /home/circleci/.cache/Cypress
+      - run:
+          name: Linting
+          command: npm run frontend-lint
+      - run:
+          name: Testing
+          command: npm run frontend-test
+      - run:
+          name: e2e Testing
+          command: npm run cypress-ci
+      - run:
+          name: Building
+          command: npm run frontend-build
+      - save_cache:
+          key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - frontend
+            - functions
+            - package.json
+            - .firebaserc
+            - firebase.json
 
-    deploy:
-        docker:
-            - image: circleci/node:8.9.3-browsers
-        working_directory: ~/project
-        steps:
-            - run:
-                name: Show current branch
-                command: echo ${CIRCLE_BRANCH}
-            - restore_cache:
-                key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
-            - run:
-                name: Install Firebase
-                command: npm install --save-dev firebase-tools
-            - run:
-                name: Functions Install
-                command: npm run functions-install
-            - run:
-                name: Deploy Master to Firebase
-                command: npm run prod-deploy
+  deploy:
+    docker:
+      - image: circleci/node:10.10.0-jessie-browsers
+    working_directory: ~/project
+    steps:
+      - run:
+          name: Show current branch
+          command: echo ${CIRCLE_BRANCH}
+      - restore_cache:
+          key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+      - run:
+          name: Install Firebase
+          command: npm install --save-dev firebase-tools
+      - run:
+          name: Functions Install
+          command: npm run functions-install
+      - run:
+          name: Deploy Master to Firebase
+          command: npm run prod-deploy
 
 workflows:
-    version: 2
-    -deploy:
-        jobs:
-        - build
-        - deploy:
-            requires:
-                - build
-            filters:
-                branches:
-                    only: master
+  version: 2
+  -deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
